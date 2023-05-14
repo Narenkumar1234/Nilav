@@ -2,26 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body{
+  overflow: hidden;
+  font-family: 'Lexend Deca';
+}
+.paddingBody{
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.mobile-image {
+  position: relative;
+  width: 375px; /* set the width of your mobile image */
+  margin: 0 auto; /* center the mobile image */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.content {
+  position: absolute;
+  top: 50px; /* adjust the top position based on your mobile image */
+  left: 20px; /* adjust the left position based on your mobile image */
+  right: 20px; /* adjust the right position based on your mobile image */
+  bottom: 20px; /* adjust the bottom position based on your mobile image */
+  /* Add other styles for your content */
 }
