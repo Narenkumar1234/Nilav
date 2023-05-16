@@ -11,7 +11,7 @@ export default function PromptMobile() {
             mobile device.
           </p>
           <p className="text-gray-500">
-            You can also use the "Inspect" feature in your browser to simulate a
+            You can also use the Inspect feature in your browser to simulate a
             mobile device.
           </p>
         </div>
