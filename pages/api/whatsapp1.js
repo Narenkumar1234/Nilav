@@ -5,13 +5,13 @@ const client = require('twilio')(accountSid, authToken);
 export default function handler(req, res) {
   const message = req.body.message;
   const phoneNumber = "+919345655774";
-  
+    
   // Send the message using Twilio
   client.messages
     .create({
       body: `${message}`,
       from: 'whatsapp:+14155238886',
-      to: `whatsapp:${phoneNumber}`
+      to: `whatsapp:$+${phoneNumber}`
     })
     .then(() => {
       // Send a success response to the client
