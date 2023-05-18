@@ -4,7 +4,7 @@ const client = require('twilio')(accountSid, authToken);
 
 export default function handler(req, res) {
   const message = req.body.message;
-  const phoneNumber = "+916382549628";
+  const phoneNumber = "+918940550534";
   console.log(message)
   // Send the message using Twilio
   client.messages
