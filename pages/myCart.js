@@ -43,6 +43,8 @@ export default function Cart({
   formattedProducts,
   selectedPriceOne,
   selectedPriceTwo,
+  isTN,
+  setIsTN,
 }) {
   var bathPrice = formattedProducts[0].qty
     ? parseFloat((bathCount * selectedPriceOne).toFixed(2))
@@ -53,8 +55,8 @@ export default function Cart({
     : 0;
   var total = parseFloat((bathPrice + facePrice).toFixed(2));
   var discout = (total * 10) / 100;
-  var shipment = total ? 40 : 0;
-  var couponDiscout = total ? 10 : 0;
+  var shipment = total ? (isTN ? 40 : 45) : 0;
+  var couponDiscout = total ? 0 : 0;
   var totalPayableAmount = parseFloat(
     (total - discout + shipment - couponDiscout).toFixed(2)
   );
@@ -71,62 +73,98 @@ export default function Cart({
           <img
             src="https://i.postimg.cc/mZ3Sg74n/image.png"
             alt="Watermark"
-            className="absolute top-32 bottom-64"
+            className="absolute top-32 bottom-64 z-0 pointer-events-none"
             width={"100%"}
           />
           <h1 className="font-bold items-center justify-center flex text-lg py-10">
             My Cart!
           </h1>
-          {(faceCount || bathCount ) && <div className="space-y-4">
-            {formattedProducts[0].qty ? (
-              <div className="px-5 flex">
-                <img
-                  className=" rounded-xl"
-                  src={formattedProducts[0].image}
-                  width={"20%"}
-                ></img>
-                <div className="grid grid-rows-3 ml-2">
-                  <span className="text-sm font-bold">
-                    {formattedProducts[0].name}
-                  </span>
-                  <span className="text-sm text-gray-500 ">
-                    Qnt: {bathCount}
-                  </span>
+          {(faceCount || bathCount) && (
+            <div className="space-y-4">
+              {formattedProducts[0].qty ? (
+                <div className="px-5 flex">
+                  <img
+                    className=" rounded-xl"
+                    src={formattedProducts[0].image}
+                    width={"20%"}
+                  ></img>
+                  <div className="grid grid-rows-3 ml-2">
+                    <span className="text-sm font-bold">
+                      {formattedProducts[0].name}
+                    </span>
+                    <span className="text-sm text-gray-500 ">
+                      Qnt: {bathCount}
+                    </span>
+                  </div>
+                  <div className="absolute right-5"> ₹{bathPrice}</div>
                 </div>
-                <div className="absolute right-5"> ₹{bathPrice}</div>
-              </div>
-            ) : (
-              <div></div>
-            )}
-            {formattedProducts[1].qty ? (
-              <div className="px-5 flex">
-                <img
-                  className=" rounded-xl"
-                  src={formattedProducts[1].image}
-                  width={"20%"}
-                ></img>
-                <div className="grid grid-rows-3 ml-2">
-                  <span className="text-sm font-bold">
-                    {formattedProducts[1].name}
-                  </span>
-                  <span className="text-sm text-gray-500 ">
-                    Qnt: {faceCount}
-                  </span>
+              ) : (
+                <div></div>
+              )}
+              {formattedProducts[1].qty ? (
+                <div className="px-5 flex">
+                  <img
+                    className=" rounded-xl"
+                    src={formattedProducts[1].image}
+                    width={"20%"}
+                  ></img>
+                  <div className="grid grid-rows-3 ml-2">
+                    <span className="text-sm font-bold">
+                      {formattedProducts[1].name}
+                    </span>
+                    <span className="text-sm text-gray-500 ">
+                      Qnt: {faceCount}
+                    </span>
+                  </div>
+                  <div className="absolute right-5"> ₹{facePrice}</div>
                 </div>
-                <div className="absolute right-5"> ₹{facePrice}</div>
-              </div>
-            ) : (
-              <div></div>
-            )}
-          </div>}
+              ) : (
+                <div></div>
+              )}
+            </div>
+          )}
           {/* <div className='text-white  text-sm font-bold justify-end flex '> 
       <button className='bg-theme py-1 px-4 rounded-lg mr-5'>
       Apply Coupon
       </button>
       </div> */}
+          <div className="px-5  items-center m-5 z-50">
+            <div className="text-center">
+              <h1 className="mb-3">Are you located Within TamilNadu? </h1>
+            </div>
+            <div className="flex items-center justify-center">
+              <div class="flex items-center mr-4">
+                <input
+                  type="radio"
+                  value=""
+                  name="inline-radio-group"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  onClick={() => setIsTN(true)}
+                />
+                <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Yes
+                </label>
+              </div>
+              <div class="flex items-center mr-4">
+                <input
+                  type="radio"
+                  value=""
+                  name="inline-radio-group"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  onClick={() => setIsTN(false)}
+                />
+                <label
+                  for="inline-2-radio"
+                  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
 
-          <div className="bg-gray-300 rounded-2xl p-3 m-5  bg-opacity-50">
-            <div className="grid grid-rows-5 space-y-2">
+          <div className="bg-gray-300 rounded-2xl p-3 m-5 h-max bg-opacity-50">
+            <div className="grid grid-rows-4 space-y-2">
               <div className=" row-span-1">
                 <div className="flex justify-between items-center">
                   <h1>Total</h1>
@@ -141,12 +179,12 @@ export default function Cart({
                 <h1>Shipping Charges</h1>
                 <h1 className="text-gray-500">+₹{shipment}</h1>
               </div>
-              <div className=" row-span-1 flex justify-between items-center">
+              {/* <div className=" row-span-1 flex justify-between items-center">
                 <h1>Coupon Discount</h1>
                 <h1 className="text-gray-500 ">
                   {couponDiscout ? "-₹" + couponDiscout : "-"}
                 </h1>
-              </div>
+              </div> */}
               <div className=" row-span-1 text-lg flex justify-between items-center">
                 <h1>Total Payable Amount</h1>
                 <h1 className="text-gray-900 ">₹{totalPayableAmount}</h1>
@@ -179,7 +217,10 @@ export default function Cart({
                   </svg>
                 </Link>
               ) : (
-                <Link href="/" className="bg-theme py-1 px-2 text-white  rounded-lg">
+                <Link
+                  href="/"
+                  className="bg-theme py-1 px-2 text-white  rounded-lg"
+                >
                   Return Home
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

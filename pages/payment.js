@@ -44,6 +44,8 @@ export default function Payment({
   formattedProducts,
   selectedPriceOne,
   selectedPriceTwo,
+  isTN,
+  setIsTN
 }) {
   var bathPrice = formattedProducts[1].qty
     ? parseFloat((bathCount * selectedPriceOne).toFixed(2))
@@ -53,8 +55,8 @@ export default function Payment({
     : 0;
   var total = parseFloat((bathPrice + facePrice).toFixed(2));
   var discout = (total * 10) / 100;
-  var shipment = total ? 40 : 0;
-  var couponDiscout = total ? 10 : 0;
+  var shipment = total ? (isTN ? 40 : 45) : 0;
+  var couponDiscout = total ? 0 : 0;
   var totalPayableAmount = parseFloat(
     (total - discout + shipment - couponDiscout).toFixed(2)
   );
@@ -202,12 +204,12 @@ export default function Payment({
                 <h1>Shipping Charges</h1>
                 <h1 className="text-gray-500">+₹{shipment}</h1>
               </div>
-              <div className=" row-span-1 flex justify-between items-center">
+              {/* <div className=" row-span-1 flex justify-between items-center">
                 <h1>Coupon Discount</h1>
                 <h1 className="text-gray-500 ">
                   {couponDiscout ? "-₹" + couponDiscout : "-"}
                 </h1>
-              </div>
+              </div> */}
               <div className=" row-span-1 text-lg flex justify-between items-center">
                 <h1>Total Payable Amount</h1>
                 <h1 className="text-gray-900 ">₹{totalPayableAmount}</h1>

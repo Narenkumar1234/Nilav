@@ -11,6 +11,7 @@ export default function App({ Component, pageProps }) {
   const [selectedPriceTwo, setSelectedPriceTwo] = useState();
   const [selectedQtyOne, setSelectedQtyOne] = useState();
   const [selectedQtyTwo, setSelectedQtyTwo] = useState();
+  const [isTN, setIsTN] = useState(true);
 
   return (
     <Component
@@ -33,6 +34,8 @@ export default function App({ Component, pageProps }) {
       setBathCount={setBathCount}
       faceCount={faceCount}
       setFaceCount={setFaceCount}
+      isTN={isTN}
+      setIsTN={setIsTN}
     />
   );
 }
