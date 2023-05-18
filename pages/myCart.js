@@ -179,7 +179,7 @@ export default function Cart({
                   </svg>
                 </Link>
               ) : (
-                <Link href="/" className="bg-theme py-1 px-2  rounded-lg">
+                <Link href="/" className="bg-theme py-1 px-2 text-white  rounded-lg">
                   Return Home
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

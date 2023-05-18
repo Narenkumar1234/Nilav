@@ -3,7 +3,9 @@ import Link from "next/link";
 import { useState } from "react";
 import Loading from "@/components/loading";
 
-export default function SuccessPage() {
+export default function SuccessPage({ setFaceCount, setBathCount }) {
+  setFaceCount(1);
+  setBathCount(1);
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
@@ -32,6 +34,7 @@ export default function SuccessPage() {
           </div>
           <div className="flex items-center justify-center mt-10">
             <Link
+              onClick={()=>setIsLoading(true)}
               href="/"
               className="bg-theme  py-2 px-5 text-white  rounded-lg"
             >

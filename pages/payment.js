@@ -1,14 +1,15 @@
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import Loading from "@/components/loading";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export async function getServerSideProps() {
   try {
     const prisma = new PrismaClient();
-
+    
     const products = await prisma.products.findMany({
       orderBy: { id: "asc" },
     });
@@ -57,16 +58,87 @@ export default function Payment({
   var totalPayableAmount = parseFloat(
     (total - discout + shipment - couponDiscout).toFixed(2)
   );
+  const { push } = useRouter();
 
   var message =
     `Hey! New Order from ${name}` +
     `\nThe Order List : \n ` +
-    `${bathCount ? `\nHerbal Bathing Powder:  ${bathCount}\n` : ``}` +
-    `${faceCount ? `\nHerbal Face Powder:  ${faceCount}\n` : ``} ` +
+    `${
+      formattedProducts[0].qty > bathCount
+        ? `\n${formattedProducts[0].name}:  ${bathCount}\n`
+        : ``
+    }` +
+    `${
+      formattedProducts[1].qty > faceCount
+        ? `\n${formattedProducts[1].name}:  ${faceCount}\n`
+        : ``
+    } ` +
     "\nThe Address You have to deliver is \n" +
     address +
     ` \n \nPayment Done : ₹ ${totalPayableAmount} \n \n Customer Mobile Number ${phoneNumber}`;
-  const handleSubmit = async () => {
+
+    // Razor Pay Initialize 
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
+  // Trigger Razorpay on click payment
+  const makePayment = async () => {
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    // Make API call to the serverless API
+    const {data} = await axios.post("/api/razorpay",  {totalPayableAmount});
+    console.log(data);
+    var options = {
+      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      name: "KanthamaNilav",
+      currency: data.currency,
+      amount: data.amount,
+      order_id: data.id,
+      description: "Thankyou for your test donation",
+      theme: "#539032",
+      handler: function (response) {
+        // Validate payment at server - using webhooks is a better idea.
+        if(response.razorpay_payment_id &&
+          response.razorpay_order_id &&
+          response.razorpay_signature){
+          sendOrderMessage();
+          push("/successPage");
+        }
+        else{
+        push("/paymentFailed");
+          
+        }
+      },
+      prefill: {
+        name: "",
+        email: "",
+        contact: "",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+  const sendOrderMessage  = async () => {
     try {
       var stockOne =
         formattedProducts[0].qty - bathCount <= 0
@@ -143,10 +215,9 @@ export default function Payment({
             </div>
           </div>
           <div className="justify-center flex items-center  mt-10">
-            {
-              <Link
-                href="/paymentFailed"
-                onClick={handleSubmit}
+            {totalPayableAmount ? (
+              <button
+                onClick={makePayment}
                 className="z-10 text-white bg-theme py-3 px-5 rounded-lg"
               >
                 Pay with BHIM/UPI ID
@@ -164,8 +235,26 @@ export default function Payment({
                     d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
+              </button>
+            ) : (
+              <Link href="/" className="bg-theme py-1 px-2 text-white rounded-lg">
+                Return Home
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 inline-block ml-2 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
               </Link>
-            }
+            )}
           </div>
           <div className="justify-center items-center flex">
             <img

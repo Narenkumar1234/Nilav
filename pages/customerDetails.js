@@ -28,7 +28,7 @@ export default function Details({
               <input
                 required
                 type="text"
-                placeholder="Your Name"
+                placeholder={name}
                 pattern="[A-Za-z]*"
                 className=" px-2 py-0.5 w-10/12  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
                 onChange={(e) => setName(e.target.value)}
@@ -45,7 +45,7 @@ export default function Details({
                 pattern="[0-9]*"
                 inputMode="numeric"
                 type="text"
-                placeholder="xxxxxxxxx"
+                placeholder={phoneNumber}
                 className=" px-2 py-0.5 w-10/12  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -60,7 +60,7 @@ export default function Details({
                 id="message"
                 rows="4"
                 className="block p-2.5 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Address Here . . ."
+                placeholder={address}
                 onChange={(e) => setAddress(e.target.value)}
               ></textarea>
             </div>
