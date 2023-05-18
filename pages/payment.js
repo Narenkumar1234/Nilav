@@ -9,7 +9,7 @@ import Link from "next/link";
 export async function getServerSideProps() {
   try {
     const prisma = new PrismaClient();
-    
+
     const products = await prisma.products.findMany({
       orderBy: { id: "asc" },
     });
