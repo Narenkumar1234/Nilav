@@ -45,7 +45,7 @@ export default function Payment({
   selectedPriceOne,
   selectedPriceTwo,
   isTN,
-  setIsTN
+  setIsTN,
 }) {
   var bathPrice = formattedProducts[1].qty
     ? parseFloat((bathCount * selectedPriceOne).toFixed(2))
@@ -79,7 +79,7 @@ export default function Payment({
     address +
     ` \n \nPayment Done : ₹ ${totalPayableAmount} \n \n Customer Mobile Number ${phoneNumber}`;
 
-    // Razor Pay Initialize 
+  // Razor Pay Initialize
   const initializeRazorpay = () => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -106,11 +106,11 @@ export default function Payment({
     }
 
     // Make API call to the serverless API
-    const {data} = await axios.post("/api/razorpay",  {totalPayableAmount});
+    const { data } = await axios.post("/api/razorpay", { totalPayableAmount });
     console.log(data);
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-      name: "KanthamaNilav",
+      name: "Narumugai",
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
@@ -118,15 +118,15 @@ export default function Payment({
       theme: "#539032",
       handler: function (response) {
         // Validate payment at server - using webhooks is a better idea.
-        if(response.razorpay_payment_id &&
+        if (
+          response.razorpay_payment_id &&
           response.razorpay_order_id &&
-          response.razorpay_signature){
+          response.razorpay_signature
+        ) {
           sendOrderMessage();
           push("/successPage");
-        }
-        else{
-        push("/paymentFailed");
-          
+        } else {
+          push("/paymentFailed");
         }
       },
       prefill: {
@@ -140,7 +140,7 @@ export default function Payment({
     paymentObject.open();
   };
 
-  const sendOrderMessage  = async () => {
+  const sendOrderMessage = async () => {
     try {
       var stockOne =
         formattedProducts[0].qty - bathCount <= 0
@@ -239,7 +239,10 @@ export default function Payment({
                 </svg>
               </button>
             ) : (
-              <Link href="/" className="bg-theme py-1 px-2 text-white rounded-lg">
+              <Link
+                href="/"
+                className="bg-theme py-1 px-2 text-white rounded-lg"
+              >
                 Return Home
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

@@ -27,7 +27,7 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    console.log(error);
+    cofsole.log(error);
     setIsLoading(false);
   }
   return {
@@ -69,13 +69,7 @@ export default function Cart({
       <div className="overflow-hidden mx-auto ">
         <Navbar page="2" setIsLoading={setIsLoading}></Navbar>
 
-        <div className="bg-subtheme h-screen w-full ">
-          <img
-            src="https://i.postimg.cc/mZ3Sg74n/image.png"
-            alt="Watermark"
-            className="absolute top-32 bottom-64 z-0 pointer-events-none"
-            width={"100%"}
-          />
+        <div className="bg-subtheme h-screen w-full  ">
           <h1 className="font-bold items-center justify-center flex text-lg py-10">
             My Cart!
           </h1>
@@ -135,28 +129,30 @@ export default function Cart({
             <div className="flex items-center justify-center">
               <div class="flex items-center mr-4">
                 <input
+                  id="Yes"
                   type="radio"
                   value=""
                   name="inline-radio-group"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   onClick={() => setIsTN(true)}
                 />
-                <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                <label
+                  for="Yes"
+                  className="ml-2 text-sm font-medium text-black"
+                >
                   Yes
                 </label>
               </div>
-              <div class="flex items-center mr-4">
+              <div className="flex items-center mr-4">
                 <input
+                  id="No"
                   type="radio"
                   value=""
                   name="inline-radio-group"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   onClick={() => setIsTN(false)}
                 />
-                <label
-                  for="inline-2-radio"
-                  class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
+                <label for="No" className="ml-2 text-sm font-medium text-black">
                   No
                 </label>
               </div>

@@ -12,8 +12,10 @@ export default function App({ Component, pageProps }) {
   const [selectedQtyOne, setSelectedQtyOne] = useState();
   const [selectedQtyTwo, setSelectedQtyTwo] = useState();
   const [isTN, setIsTN] = useState(true);
+  const [theme, setTheme] = useState("theme");
 
   return (
+    
     <Component
       {...pageProps}
       selectedQtyOne={selectedQtyOne}
@@ -36,6 +38,10 @@ export default function App({ Component, pageProps }) {
       setFaceCount={setFaceCount}
       isTN={isTN}
       setIsTN={setIsTN}
+      theme={theme}
+      setTheme={setTheme}
     />
+    
   );
+  
 }

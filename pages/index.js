@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import PromptMobile from "@/components/PromptMobile";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
 
@@ -66,12 +66,41 @@ export default function Home({
   setSelectedPriceTwo,
   setSelectedQtyOne,
   setSelectedQtyTwo,
+  theme,
+  setTheme
 }) {
   var id1 = 0;
   var id2 = 0;
   const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+      const darkThemeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+
+      const handleDarkThemeChange = (event) => {
+        if(event.matches){
+          setTheme("darktheme")
+        }
+        else{
+          setTheme("theme")
+        }
+      };
+
+      darkThemeMediaQuery.addEventListener("change", handleDarkThemeChange);
+      if (darkThemeMediaQuery.matches) {
+        setTheme("darktheme");
+      } else {
+        setTheme("theme");
+      }
+      return () => {
+        darkThemeMediaQuery.removeEventListener(
+          "change",
+          handleDarkThemeChange
+        );
+      };
+    }, []);
   return (
-    <>    
+    <>
       {isLoading ? <Loading /> : <div></div>}
       <PromptMobile />
       <div className="lg:hidden">
@@ -88,8 +117,8 @@ export default function Home({
                     <div className=" row-span-3 ">
                       <div className=" grid grid-cols-2 py-3 ">
                         <div className=" col-span-1 ">
-                          <div className="flex items-center justify-center">
-                            <div className="w-24 h-24 relative rounded-lg overflow-hidden">
+                          <div className="flex relative items-center justify-center ">
+                            <div className="w-24 h-24 rounded-xl overflow-hidden ">
                               <img
                                 src={formattedProducts[0].image}
                                 className="w-full h-full object-cover"
@@ -266,8 +295,7 @@ export default function Home({
                 {formattedProducts[0].qty || formattedProducts[1].qty ? (
                   <Link
                     href="/myCart"
-                    className="bg-theme py-1 px-2 rounded-lg"
-                    onClick={() => {
+                    className={"bg-theme py-1 px-2 rounded-lg"}                    onClick={() => {
                       selectedPriceOne ??
                         setSelectedPriceOne(productOnePriceList[0].price);
                       selectedPriceTwo ??
