@@ -1,11 +1,11 @@
-const accountSid = "AC3c3f64882e4173a0411b1f6eb39af7c8";
+const accountSid = process.env.accountSid;
 const authToken = process.env.authToken;
-const client = require('twilio')(accountSid, authToken);
+const client = require("twilio")(accountSid, authToken);
 
 export default function handler(req, res) {
   const message = req.body.message;
   const phoneNumber = "+918940550534";
-  console.log(message)
+  console.log(message);
   // Send the message using Twilio
   client.messages
     .create({

@@ -17,7 +17,7 @@ export default function SuccessPage({ setFaceCount, setBathCount }) {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
-            fill="#539032"
+            fill="#357076"
             className="mx-auto w-6/12 animate-bounce"
           >
             <path
@@ -34,7 +34,7 @@ export default function SuccessPage({ setFaceCount, setBathCount }) {
           </div>
           <div className="flex items-center justify-center mt-10">
             <Link
-              onClick={()=>setIsLoading(true)}
+              onClick={() => setIsLoading(true)}
               href="/"
               className="bg-theme  py-2 px-5 text-white  rounded-lg"
             >
@@ -44,7 +44,7 @@ export default function SuccessPage({ setFaceCount, setBathCount }) {
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke="currentColor"
+                stroke="#357076"
                 className="w-6 inline-block ml-2 h-6"
               >
                 <path
