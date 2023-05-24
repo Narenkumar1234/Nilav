@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useState } from "react";
 import Loading from "@/components/loading";
-import ReactSwitch  from "react-switch";
+import ReactSwitch from "react-switch";
 export default function Details({
   setPhoneNumber,
   setAddress,
@@ -69,62 +69,62 @@ export default function Details({
             </div>
           </div>
         </div>
-          <div className="flex items-center m-5 z-50">
-            <div className="">
-              <h1 className="mb-3 text-sm">Are you located Within TamilNadu? </h1>
-            </div>
-            <div className="flex items-center">
-              <div className="flex items-center mr-4">
-                <ReactSwitch
-                  id="locationSwitch"
-                  onChange={(checked) => setIsTN(checked)}
-                  checked={isTN}
-                  onColor="#4B5563"
-                  offColor="#D1D5DB"
-                  className="react-switch"
-                  height={24}
-                  width={48}
-                  handleDiameter={20}
-                />
-                <label
-                  htmlFor="locationSwitch"
-                  className="ml-2 text-sm font-medium text-black"
-                >
-                  {isTN ? "Yes" : "No"}
-                </label>
-              </div>
-            </div>
+        <div className="flex items-center m-5 z-50">
+          <div className="">
+            <h1 className="mb-3 text-sm">Are you located Within TamilNadu? </h1>
           </div>
-          <div class="fixed bottom-0 left-0 w-full  py-4 shadow">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="flex justify-center items-ceter">
-                {phoneNumber && name && address && (
-                  <Link
-                    onClick={() => setIsLoading(true)}
-                    href="/payment"
-                    class="bg-theme text-white font-semibold px-4 py-2 mr-4 rounded"
-                  >
-                    Proceed to Payment
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 inline-block ml-2 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </Link>
-                )}
-              </div>
+          <div className="flex items-center">
+            <div className="flex items-center mr-4">
+              <ReactSwitch
+                id="locationSwitch"
+                onChange={(checked) => setIsTN(checked)}
+                checked={isTN}
+                onColor="#4B5563"
+                offColor="#D1D5DB"
+                className="react-switch"
+                height={24}
+                width={48}
+                handleDiameter={20}
+              />
+              <label
+                htmlFor="locationSwitch"
+                className="ml-2 text-sm font-medium text-black"
+              >
+                {isTN ? "Yes" : "No"}
+              </label>
             </div>
           </div>
         </div>
+        <div className="fixed bottom-0 left-0 w-full  py-4 shadow">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center items-ceter">
+              {phoneNumber && name && address && (
+                <Link
+                  onClick={() => setIsLoading(true)}
+                  href="/payment"
+                  className="bg-theme text-white font-semibold px-4 py-2 mr-4 rounded"
+                >
+                  Proceed to Payment
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 inline-block ml-2 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

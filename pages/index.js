@@ -73,7 +73,7 @@ export default function Home({
             Our Products!
           </h1>
           {formattedProducts.map((formattedProduct) => (
-            <div className="mt-5">
+            <div key={formattedProduct.id} className="mt-5">
               <div className="">
                 <div className="pb-10">
                   <div className=" mx-10 rounded-xl bg-white">
