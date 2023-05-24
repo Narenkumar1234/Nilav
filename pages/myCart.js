@@ -148,8 +148,7 @@ export default function Cart({
                     <img
                       className="rounded-xl object-cover h-full w-full"
                       src={product.image}
-                      width={"100"}
-                      height={"100"}
+                      width={"100%"}
                       alt="Product Image"
                     />
                   </div>

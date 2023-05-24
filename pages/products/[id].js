@@ -155,8 +155,7 @@ export default function Products({
           className="w-11/12 h-full mx-auto object-cover rounded-2xl"
           src={formattedProduct.image}
           alt="productImg"
-          width={"100"}
-          height={"100"}
+          width={"100%"}
         />
       </div>
       <div className="px-10 flex items-center font-bold justify-between">

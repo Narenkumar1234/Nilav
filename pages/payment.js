@@ -300,8 +300,7 @@ export default function Payment({
             <img
               src="https://i.postimg.cc/Pr5ddQ0R/image.png"
               className="z-0 absolute bottom-0"
-              width={"60"}
-              height={"100"}
+              width={"60%"}
               alt=""
             />
           </div>

@@ -8,8 +8,7 @@ export default function Loading() {
           <img
             className="animate-spin-slow"
             src="https://i.postimg.cc/qB5j0Vfq/image-removebg-preview-4.png "
-            width={"100"}
-            height={"100"}
+            width={"100%"}
             alt=""
           />
           <p className="text-white text-center animate-pulse">Loading</p>

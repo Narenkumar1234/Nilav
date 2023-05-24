@@ -17,8 +17,7 @@ export default function Navbar({ page, setIsLoading }) {
             src="https://i.postimg.cc/SQLP4PF6/logo-removebg-preview.png"
             alt="Watermark"
             className="border-white w-10 m-3 rounded-md"
-            width={"50"}
-            height={"100"}
+            width={"50%"}
           />
         </div>
         <h1>Narumugai</h1>
@@ -28,8 +27,7 @@ export default function Navbar({ page, setIsLoading }) {
           <div className="flex items-center justify-center w-12">
             <img
               src="https://i.postimg.cc/y6vpbZzB/image.png"
-              width={"100"}
-              height={"100"}
+              width={"100%"}
               alt=""
             />
           </div>

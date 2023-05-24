@@ -82,8 +82,7 @@ export default function Home({
                       <div className="rounded-xl product-page-image-div overflow-hidden ">
                         <img
                           alt=""
-                          width={"100"}
-                          height={"100"}
+                          width={"100%"}
                           src={formattedProduct.image}
                           className="w-full h-full object-cover"
                         />
