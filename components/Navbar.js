@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar({ page, setIsLoading }) {
@@ -12,7 +13,7 @@ export default function Navbar({ page, setIsLoading }) {
     >
       <div className="font-bold flex items-center">
         <div className="flex items-center  justify-center">
-          <img
+          <Image
             src="https://i.postimg.cc/SQLP4PF6/logo-removebg-preview.png"
             alt="Watermark"
             className="border-white w-10 m-3 rounded-md"
@@ -24,7 +25,7 @@ export default function Navbar({ page, setIsLoading }) {
       {page == "1" ? (
         <Link href="/myCart" onClick={handleClick}>
           <div className="flex items-center justify-center w-12">
-            <img src="https://i.postimg.cc/y6vpbZzB/image.png" alt="" />
+            <Image src="https://i.postimg.cc/y6vpbZzB/image.png" alt="" />
           </div>
         </Link>
       ) : (

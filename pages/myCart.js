@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 export async function getServerSideProps() {
   try {
@@ -144,7 +145,7 @@ export default function Cart({
               <div key={product.id}>
                 <div className="flex relative p-5">
                   <div className="w-24 h-24 overflow-hidden">
-                    <img
+                    <Image
                       className="rounded-xl object-cover h-full w-full"
                       src={product.image}
                       alt="Product Image"
@@ -248,7 +249,7 @@ export default function Cart({
                 <hr className="mx-5 border-gray-300 shadow-sm border-0.5 rounded-full"></hr>
               </div>
             ) : (
-              <div></div>
+              <div key={product.id}></div>
             )
           )}
           {filteredProducts.length ? (

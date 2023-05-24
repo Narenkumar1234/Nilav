@@ -1,9 +1,10 @@
 import Navbar from "../components/Navbar";
 import Link from "next/link";
 import PromptMobile from "@/components/PromptMobile";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
+import Image from "next/image";
 
 export async function getServerSideProps() {
   try {
@@ -79,7 +80,8 @@ export default function Home({
                   <div className=" mx-10 rounded-xl bg-white">
                     <div className="px-3 pt-3">
                       <div className="rounded-xl product-page-image-div overflow-hidden ">
-                        <img
+                        <Image
+                          alt=""
                           src={formattedProduct.image}
                           className="w-full h-full object-cover"
                         />

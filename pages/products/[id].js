@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Loading from "@/components/loading";
+import Image from "next/image";
 
 export async function getServerSideProps(context) {
   try {
@@ -150,7 +151,7 @@ export default function Products({
       {isLoading ? <Loading /> : <div></div>}
       <Navbar page="2" setIsLoading={setIsLoading} />
       <div className="product-page-image-div p-5 py-5">
-        <img
+        <Image
           className="w-11/12 h-full mx-auto object-cover rounded-2xl"
           src={formattedProduct.image}
           alt="productImg"

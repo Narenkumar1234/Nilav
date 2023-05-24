@@ -5,6 +5,7 @@ import Loading from "@/components/loading";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export async function getServerSideProps() {
   try {
@@ -295,7 +296,7 @@ export default function Payment({
             )}
           </div>
           <div className="justify-center items-center flex">
-            <img
+            <Image
               src="https://i.postimg.cc/Pr5ddQ0R/image.png"
               className="z-0 absolute bottom-0"
               width={"60%"}
