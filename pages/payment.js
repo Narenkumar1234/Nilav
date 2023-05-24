@@ -296,10 +296,10 @@ export default function Payment({
               </Link>
             )}
           </div>
-          <div className="justify-center items-center flex">
+          <div className="justify-center items-center fixed bottom-0 flex">
             <img
               src="https://i.postimg.cc/Pr5ddQ0R/image.png"
-              className="z-0 absolute bottom-0"
+              className="z-0"
               width={"60%"}
               alt=""
             />
