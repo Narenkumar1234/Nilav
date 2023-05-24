@@ -99,20 +99,19 @@ export default function Payment({
     }
   }, [filterCartItems, priceStored, countStored, isTN]);
 
-
   const { push } = useRouter();
 
   var message =
     `Hey! New Order from ${name}` +
     `\nThe Order List : \n ` +
     `${
-      formattedProducts[0].qty >  countStored?.[1]
-        ? `\n${formattedProducts[0].name}:  ${countStored?.[1]||0}\n`
+      formattedProducts[0].qty > countStored?.[1]
+        ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0}\n`
         : ``
     }` +
     `${
       formattedProducts[1].qty > countStored?.[2]
-        ? `\n${formattedProducts[1].name}:  ${countStored?.[2]||0}\n`
+        ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n`
         : ``
     } ` +
     "\nThe Address You have to deliver is \n" +
@@ -182,9 +181,11 @@ export default function Payment({
 
   const sendOrderMessage = async () => {
     try {
-      var stockOne = formattedProducts[0].qty - (countStored?.[1] ? countStored[1]: 0);
-          
-      var stockTwo = formattedProducts[1].qty -  (countStored?.[2] ? countStored[2]: 0);
+      var stockOne =
+        formattedProducts[0].qty - (countStored?.[1] ? countStored[1] : 0);
+
+      var stockTwo =
+        formattedProducts[1].qty - (countStored?.[2] ? countStored[2] : 0);
       const { data } = await axios.post("/api/qty", {
         stockOne,
         stockTwo,
@@ -296,10 +297,11 @@ export default function Payment({
             )}
           </div>
           <div className="justify-center items-center flex">
-            <Image
+            <img
               src="https://i.postimg.cc/Pr5ddQ0R/image.png"
               className="z-0 absolute bottom-0"
-              width={"60%"}
+              width={"60"}
+              height={"100"}
               alt=""
             />
           </div>

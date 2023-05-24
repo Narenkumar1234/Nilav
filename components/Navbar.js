@@ -13,11 +13,12 @@ export default function Navbar({ page, setIsLoading }) {
     >
       <div className="font-bold flex items-center">
         <div className="flex items-center  justify-center">
-          <Image
+          <img
             src="https://i.postimg.cc/SQLP4PF6/logo-removebg-preview.png"
             alt="Watermark"
             className="border-white w-10 m-3 rounded-md"
-            width={"50%"}
+            width={"50"}
+            height={"100"}
           />
         </div>
         <h1>Narumugai</h1>
@@ -25,7 +26,12 @@ export default function Navbar({ page, setIsLoading }) {
       {page == "1" ? (
         <Link href="/myCart" onClick={handleClick}>
           <div className="flex items-center justify-center w-12">
-            <Image src="https://i.postimg.cc/y6vpbZzB/image.png" alt="" />
+            <img
+              src="https://i.postimg.cc/y6vpbZzB/image.png"
+              width={"100"}
+              height={"100"}
+              alt=""
+            />
           </div>
         </Link>
       ) : (

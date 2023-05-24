@@ -61,12 +61,14 @@ export default function Products({
   const router = useRouter();
   const { id } = router.query;
   var id1 = 0;
-  (formattedProduct.qty && count[formattedProduct.id] === undefined) && setCount((prevCount)=>{
-    return{
-    ...prevCount,
-      [formattedProduct.id]: 1
-    }
-  })
+  formattedProduct.qty &&
+    count[formattedProduct.id] === undefined &&
+    setCount((prevCount) => {
+      return {
+        ...prevCount,
+        [formattedProduct.id]: 1,
+      };
+    });
 
   function handleAddToCart() {
     setAddOrGo(false);
@@ -112,22 +114,21 @@ export default function Products({
       return updatedCartItems; // return the updated value
     });
 
-    (count[formattedProduct.id] === undefined ||
-      count[formattedProduct.id] == 0) ?
-     ( setCount((prevCount) => {
-        const updatedCount = {
-          [formattedProduct.id]: 1, // Set the count for the specific product ID
-        };
-        localStorage.setItem("count", JSON.stringify(updatedCount));
-        return updatedCount;
-      })):setCount((prevCount) => {
-      const updatedCount = {
-        [formattedProduct.id]: count[formattedProduct.id], // Set the count for the specific product ID
-      };
-      localStorage.setItem("count", JSON.stringify(updatedCount));
-      return updatedCount;
-    });
-
+    count[formattedProduct.id] === undefined || count[formattedProduct.id] == 0
+      ? setCount((prevCount) => {
+          const updatedCount = {
+            [formattedProduct.id]: 1, // Set the count for the specific product ID
+          };
+          localStorage.setItem("count", JSON.stringify(updatedCount));
+          return updatedCount;
+        })
+      : setCount((prevCount) => {
+          const updatedCount = {
+            [formattedProduct.id]: count[formattedProduct.id], // Set the count for the specific product ID
+          };
+          localStorage.setItem("count", JSON.stringify(updatedCount));
+          return updatedCount;
+        });
 
     price[formattedProduct.id] === undefined || price[formattedProduct.id] == 0
       ? setPrice((prevCount) => {
@@ -147,14 +148,15 @@ export default function Products({
   }
   return (
     <>
-
       {isLoading ? <Loading /> : <div></div>}
       <Navbar page="2" setIsLoading={setIsLoading} />
       <div className="product-page-image-div p-5 py-5">
-        <Image
+        <img
           className="w-11/12 h-full mx-auto object-cover rounded-2xl"
           src={formattedProduct.image}
           alt="productImg"
+          width={"100"}
+          height={"100"}
         />
       </div>
       <div className="px-10 flex items-center font-bold justify-between">
@@ -218,7 +220,9 @@ export default function Products({
               <button
                 className="p-0.5 border  border-green-800 rounded-full"
                 onClick={() => {
-                  {console.log(count[formattedProduct.id]);}
+                  {
+                    console.log(count[formattedProduct.id]);
+                  }
                   count[formattedProduct.id] < formattedProduct.qty &&
                     setCount((prevCounts) => ({
                       ...prevCounts,

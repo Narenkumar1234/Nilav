@@ -80,8 +80,10 @@ export default function Home({
                   <div className=" mx-10 rounded-xl bg-white">
                     <div className="px-3 pt-3">
                       <div className="rounded-xl product-page-image-div overflow-hidden ">
-                        <Image
+                        <img
                           alt=""
+                          width={"100"}
+                          height={"100"}
                           src={formattedProduct.image}
                           className="w-full h-full object-cover"
                         />
@@ -101,7 +103,11 @@ export default function Home({
                       </p>
                     </div>
                     <div className="text-center p-3 pb-10">
-                      <Link onClick={()=>setIsLoading(true)} href={`/products/${formattedProduct.id}`} className="bg-theme text-white font-semibold px-4 py-2 mr-4 rounded">
+                      <Link
+                        onClick={() => setIsLoading(true)}
+                        href={`/products/${formattedProduct.id}`}
+                        className="bg-theme text-white font-semibold px-4 py-2 mr-4 rounded"
+                      >
                         Buy Now
                       </Link>
                     </div>

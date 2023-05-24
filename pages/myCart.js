@@ -145,9 +145,11 @@ export default function Cart({
               <div key={product.id}>
                 <div className="flex relative p-5">
                   <div className="w-24 h-24 overflow-hidden">
-                    <Image
+                    <img
                       className="rounded-xl object-cover h-full w-full"
                       src={product.image}
+                      width={"100"}
+                      height={"100"}
                       alt="Product Image"
                     />
                   </div>
