@@ -2,8 +2,9 @@ import Navbar from "../components/Navbar";
 import Link from "next/link";
 import PromptMobile from "@/components/PromptMobile";
 import { PrismaClient } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
+import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 
 export async function getServerSideProps() {
   try {
@@ -27,8 +28,7 @@ export async function getServerSideProps() {
       },
     };
   } catch (error) {
-    cofsole.log(error);
-    setIsLoading(false);
+    console.log(error);
   }
   return {
     props: {
@@ -38,204 +38,242 @@ export async function getServerSideProps() {
 }
 
 export default function Cart({
-  bathCount,
-  faceCount,
+  price,
+  setPrice,
+  count,
+  setCount,
+  cartItems,
+  setCartItems,
   formattedProducts,
-  selectedPriceOne,
-  selectedPriceTwo,
-  isTN,
-  setIsTN,
 }) {
-  var bathPrice = formattedProducts[0].qty
-    ? parseFloat((bathCount * selectedPriceOne).toFixed(2))
-    : 0;
-
-  var facePrice = formattedProducts[1].qty
-    ? parseFloat((faceCount * selectedPriceTwo).toFixed(2))
-    : 0;
-  var total = parseFloat((bathPrice + facePrice).toFixed(2));
-  var discout = (total * 10) / 100;
-  var shipment = total ? (isTN ? 40 : 45) : 0;
-  var couponDiscout = total ? 0 : 0;
-  var totalPayableAmount = parseFloat(
-    (total - discout + shipment - couponDiscout).toFixed(2)
-  );
   const [isLoading, setIsLoading] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [priceStored, setPriceStored] = useState({});
+  const [countStored, setCountStored] = useState({});
+  const [cartItemsStored, setCartItemsStored] = useState({});
+  useEffect(() => {
+    //fetch cartItems from local storage
+    try {
+      setCountStored(JSON.parse(localStorage.getItem("count")));
 
+      var countKey = Object.keys(countStored).filter(
+        (key) => (countStored[key] > 0)
+      );
+      setFilteredProducts(
+        formattedProducts.filter((formattedProduct) =>
+          (formattedProduct.qty>0) && (countKey.includes(String(formattedProduct.id)))
+        )
+      );
+      setPriceStored(JSON.parse(localStorage.getItem("price")));
+      setCartItemsStored(JSON.parse(localStorage.getItem("cartItems")));
+
+    } catch (error) {
+      console.log(error);
+    }
+  }, [cartItems, count, price]);
+
+  useEffect(() => {
+    setCount(JSON.parse(localStorage.getItem("count")));
+    setPrice(JSON.parse(localStorage.getItem("price")));
+  }, []);
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
       <PromptMobile />
-      <div className="overflow-hidden mx-auto ">
+      <div className="overflow-hidden mx-aut">
         <Navbar page="2" setIsLoading={setIsLoading}></Navbar>
-
-        <div className="bg-subtheme h-screen w-full  ">
-          <h1 className="font-bold items-center justify-center flex text-lg py-10">
+        <div className="bg-subtheme h-screen w-full">
+          <h1 className="font-bold items-center justify-center flex text-lg pt-10 ">
             My Cart!
           </h1>
-          {(faceCount || bathCount) && (
-            <div className="space-y-4">
-              {formattedProducts[0].qty ? (
-                <div className="px-5 flex">
-                  <img
-                    className=" rounded-xl"
-                    src={formattedProducts[0].image}
-                    width={"20%"}
-                  ></img>
-                  <div className="grid grid-rows-3 ml-2">
-                    <span className="text-sm font-bold">
-                      {formattedProducts[0].name}
-                    </span>
-                    <span className="text-sm text-gray-500 ">
-                      Qnt: {bathCount}
-                    </span>
-                  </div>
-                  <div className="absolute right-5"> ₹{bathPrice}</div>
+          {filteredProducts.length > 0 ? (
+            <div className="flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6 5v1H4.667a1.75 1.75 0 00-1.743 1.598l-.826 9.5A1.75 1.75 0 003.84 19H16.16a1.75 1.75 0 001.743-1.902l-.826-9.5A1.75 1.75 0 0015.333 6H14V5a4 4 0 00-8 0zm4-2.5A2.5 2.5 0 007.5 5v1h5V5A2.5 2.5 0 0010 2.5zM7.5 10a2.5 2.5 0 005 0V8.75a.75.75 0 011.5 0V10a4 4 0 01-8 0V8.75a.75.75 0 011.5 0V10z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>You have {filteredProducts.length} items in your cart</span>
+            </div>
+          ) : (
+            <div>
+              <div className="flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 5v1H4.667a1.75 1.75 0 00-1.743 1.598l-.826 9.5A1.75 1.75 0 003.84 19H16.16a1.75 1.75 0 001.743-1.902l-.826-9.5A1.75 1.75 0 0015.333 6H14V5a4 4 0 00-8 0zm4-2.5A2.5 2.5 0 007.5 5v1h5V5A2.5 2.5 0 0010 2.5zM7.5 10a2.5 2.5 0 005 0V8.75a.75.75 0 011.5 0V10a4 4 0 01-8 0V8.75a.75.75 0 011.5 0V10z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <span>
+                  You have {filteredProducts.length} items in your cart
+                </span>
+              </div>
+              <div>
+                <div class="flex justify-center">
+                  <Link
+                    onClick={() => setIsLoading(true)}
+                    href="/"
+                    class="bg-theme text-white font-semibold px-4 py-2 mr-4 rounded"
+                  >
+                    Shop Now!
+                  </Link>
                 </div>
-              ) : (
-                <div></div>
-              )}
-              {formattedProducts[1].qty ? (
-                <div className="px-5 flex">
-                  <img
-                    className=" rounded-xl"
-                    src={formattedProducts[1].image}
-                    width={"20%"}
-                  ></img>
-                  <div className="grid grid-rows-3 ml-2">
-                    <span className="text-sm font-bold">
-                      {formattedProducts[1].name}
-                    </span>
-                    <span className="text-sm text-gray-500 ">
-                      Qnt: {faceCount}
-                    </span>
-                  </div>
-                  <div className="absolute right-5"> ₹{facePrice}</div>
-                </div>
-              ) : (
-                <div></div>
-              )}
+              </div>
             </div>
           )}
-          {/* <div className='text-white  text-sm font-bold justify-end flex '> 
-      <button className='bg-theme py-1 px-4 rounded-lg mr-5'>
-      Apply Coupon
-      </button>
-      </div> */}
-          <div className="px-5  items-center m-5 z-50">
-            <div className="text-center">
-              <h1 className="mb-3">Are you located Within TamilNadu? </h1>
-            </div>
-            <div className="flex items-center justify-center">
-              <div class="flex items-center mr-4">
-                <input
-                  id="Yes"
-                  type="radio"
-                  value=""
-                  name="inline-radio-group"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => setIsTN(true)}
-                />
-                <label
-                  for="Yes"
-                  className="ml-2 text-sm font-medium text-black"
-                >
-                  Yes
-                </label>
-              </div>
-              <div className="flex items-center mr-4">
-                <input
-                  id="No"
-                  type="radio"
-                  value=""
-                  name="inline-radio-group"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  onClick={() => setIsTN(false)}
-                />
-                <label for="No" className="ml-2 text-sm font-medium text-black">
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
+          {filteredProducts.map((product) =>
+            count[product.id] ? (
+              <div>
+                <div className="flex relative p-5">
+                  <div className="w-24 h-24 overflow-hidden">
+                    <img
+                      className="rounded-xl object-cover h-full w-full"
+                      src={product.image}
+                      alt="Product Image"
+                    />
+                  </div>
+                  <div className="grid grid-rows-3 ml-2">
+                    <span className="text-sm font-bold">{product.name}</span>
+                    <span className="text-sm text-gray-500 ">
+                      {cartItemsStored[product.id]}
+                      {product.id == 1 ? "ml" : "g"}
+                    </span>
+                    <span className="flex justify-between items-center">
+                      <span>
+                        ₹{priceStored[product.id] * countStored[product.id]}
+                      </span>
+                    </span>
+                  </div>
+                  {product.qty === 0 ? (
+                    <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                      Out of Stock
+                    </div>
+                  ) : (
+                    <div className="absolute bottom-6 right-5">
+                      <div className="flex items-center">
+                        <button
+                          className="p-0.5 border border-black rounded-full"
+                          onClick={() => {
+                            count[product.id] > 0 &&
+                              setCount((prevCounts) => {
+                                const existingCount =
+                                  JSON.parse(localStorage.getItem("count")) ||
+                                  {};
+                                const updatedCount =
+                                  (prevCounts[product.id] || 0) - 1;
+                                localStorage.setItem(
+                                  "count",
+                                  JSON.stringify({
+                                    ...existingCount,
+                                    [product.id]: updatedCount,
+                                  })
+                                );
+                                setCountStored(
+                                  JSON.parse(localStorage.getItem("count"))
+                                );
 
-          <div className="bg-gray-300 rounded-2xl p-3 m-5 h-max bg-opacity-50">
-            <div className="grid grid-rows-4 space-y-2">
-              <div className=" row-span-1">
-                <div className="flex justify-between items-center">
-                  <h1>Total</h1>
-                  <h1 className="text-gray-900">₹{total}</h1>
+                                var countKey = Object.keys(countStored).filter(
+                                  (key) => countStored[key] > 0
+                                );
+                                setFilteredProducts(
+                                  formattedProducts.filter((formattedProduct) =>
+                                    countKey.includes(
+                                      String(formattedProduct.id)
+                                    )
+                                  )
+                                );
+                                return {
+                                  ...prevCounts,
+                                  [product.id]: updatedCount,
+                                };
+                              });
+                            count[product.id] < 2 &&
+                              localStorage.setItem(
+                                "cartItems",
+                                JSON.stringify(cartItems)
+                              );
+                          }}
+                        >
+                          <MinusSmIcon className="h-5 w-5 text-black" />
+                        </button>
+                        <span className="mx-2">{countStored[product.id]}</span>
+                        <button
+                          className="p-0.5 border  border-black rounded-full"
+                          onClick={() => {
+                            product.qty > count[product.id] &&
+                              setCount((prevCounts) => {
+                                const existingCount =
+                                  JSON.parse(localStorage.getItem("count")) ||
+                                  {};
+                                const updatedCount =
+                                  (prevCounts[product.id] || 0) + 1;
+                                localStorage.setItem(
+                                  "count",
+                                  JSON.stringify({
+                                    ...existingCount,
+                                    [product.id]: updatedCount,
+                                  })
+                                );
+                                return {
+                                  ...prevCounts,
+                                  [product.id]: updatedCount,
+                                };
+                              });
+                          }}
+                        >
+                          <PlusSmIcon className="h-5 w-5 text-black" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <hr className="mx-5 border-gray-300 shadow-sm border-0.5 rounded-full"></hr>
+              </div>
+            ) : (
+              <div></div>
+            )
+          )}
+          {filteredProducts.length ? (
+            <div class="fixed bottom-0 left-0 w-full py-4 shadow">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-center">
+                  <Link
+                    onClick={() => setIsLoading(true)}
+                    href="/"
+                    class="bg-theme text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
+                  >
+                    Continue Shopping
+                  </Link>
+                  <Link
+                    onClick={() => setIsLoading(true)}
+                    href="/customerDetails"
+                    class="bg-black text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
+                  >
+                    Checkout
+                  </Link>
                 </div>
               </div>
-              <div className=" row-span-1 text-gray-950 flex justify-between items-center">
-                <h1>Discount</h1>
-                <h1 className="text-gray-500">-10%</h1>
-              </div>
-              <div className=" row-span-1 flex justify-between items-center">
-                <h1>Shipping Charges</h1>
-                <h1 className="text-gray-500">+₹{shipment}</h1>
-              </div>
-              {/* <div className=" row-span-1 flex justify-between items-center">
-                <h1>Coupon Discount</h1>
-                <h1 className="text-gray-500 ">
-                  {couponDiscout ? "-₹" + couponDiscout : "-"}
-                </h1>
-              </div> */}
-              <div className=" row-span-1 text-lg flex justify-between items-center">
-                <h1>Total Payable Amount</h1>
-                <h1 className="text-gray-900 ">₹{totalPayableAmount}</h1>
-              </div>
             </div>
-          </div>
-
-          <div className="space-y-10">
-            <div className="text-white font-bold justify-center flex absolute right-0 bottom-0 left-0 mb-10">
-              {totalPayableAmount ? (
-                <Link
-                  href="/customerDetails"
-                  className="bg-theme py-1 px-2  rounded-lg"
-                  onClick={() => setIsLoading(true)}
-                >
-                  Checkout
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 inline-block ml-2 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </Link>
-              ) : (
-                <Link
-                  href="/"
-                  className="bg-theme py-1 px-2 text-white  rounded-lg"
-                >
-                  Return Home
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 inline-block ml-2 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </Link>
-              )}
-            </div>
-          </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </>

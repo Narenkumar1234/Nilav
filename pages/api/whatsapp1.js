@@ -11,7 +11,7 @@ export default function handler(req, res) {
     .create({
       body: `${message}`,
       from: "whatsapp:+14155238886",
-      to: `whatsapp:${phoneNumber}`,
+      to: `whatsapp:+918940550534`,
     })
     .then(() => {
       // Send a success response to the client

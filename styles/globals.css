@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  /* overflow: hidden; */
-  font-family: 'Lexend Deca';
+.product-page-image-div {
+  height: 30vh; /* 30% of the viewport height */
+  width: 100%;
 }
-.paddingBody{
+body {
+  /* overflow: hidden; */
+  font-family: "Lexend Deca";
+}
+.paddingBody {
   padding-left: 5px;
   padding-right: 5px;
 }

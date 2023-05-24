@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import Loading from "@/components/loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -36,43 +36,82 @@ export async function getServerSideProps() {
   }
 }
 export default function Payment({
-  bathCount,
-  faceCount,
   phoneNumber,
   address,
   name,
   formattedProducts,
-  selectedPriceOne,
-  selectedPriceTwo,
   isTN,
   setIsTN,
 }) {
-  var bathPrice = formattedProducts[1].qty
-    ? parseFloat((bathCount * selectedPriceOne).toFixed(2))
-    : 0;
-  var facePrice = formattedProducts[0].qty
-    ? parseFloat((faceCount * selectedPriceTwo).toFixed(2))
-    : 0;
-  var total = parseFloat((bathPrice + facePrice).toFixed(2));
-  var discout = (total * 10) / 100;
-  var shipment = total ? (isTN ? 40 : 45) : 0;
-  var couponDiscout = total ? 0 : 0;
-  var totalPayableAmount = parseFloat(
-    (total - discout + shipment - couponDiscout).toFixed(2)
-  );
+  const [total, setTotal] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [shipment, setShipment] = useState(0);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [totalPayableAmount, setTotalPayableAmount] = useState(0);
+  const [countStored, setCountStored] = useState({});
+  const [priceStored, setPriceStored] = useState({});
+  const [cartItemsStored, setCartItemsStored] = useState({});
+  const [filterCartItems, setFilterCartItems] = useState({});
+
+  useEffect(() => {
+    const cartItemsStored = JSON.parse(localStorage.getItem("cartItems"));
+    const countStored = JSON.parse(localStorage.getItem("count"));
+    const priceStored = JSON.parse(localStorage.getItem("price"));
+
+    setCartItemsStored(cartItemsStored);
+    setCountStored(countStored);
+    setPriceStored(priceStored);
+
+    const countKey = Object.keys(countStored).filter(
+      (key) => countStored[key] > 0
+    );
+    const filterCartItems = formattedProducts.filter((cart) =>
+      countKey.includes(String(cart.id))
+    );
+    setFilterCartItems(filterCartItems);
+  }, []);
+
+  useEffect(() => {
+    if (filterCartItems && priceStored && countStored) {
+      let total = 0;
+
+      Object.keys(filterCartItems).forEach((key) => {
+        const cartItem = filterCartItems[key];
+        const count = countStored[cartItem.id];
+        const price = priceStored[cartItem.id];
+        const itemTotal = price * count;
+        total += itemTotal;
+      });
+
+      const discount = (total * 10) / 100;
+      const shipment = total ? (isTN ? 40 : 45) : 0;
+      const couponDiscount = total ? 0 : 0;
+      const totalPayableAmount = parseFloat(
+        (total - discount + shipment - couponDiscount).toFixed(2)
+      );
+
+      setTotal(total);
+      setDiscount(discount);
+      setShipment(shipment);
+      setCouponDiscount(couponDiscount);
+      setTotalPayableAmount(totalPayableAmount);
+    }
+  }, [filterCartItems, priceStored, countStored, isTN]);
+
+
   const { push } = useRouter();
 
   var message =
     `Hey! New Order from ${name}` +
     `\nThe Order List : \n ` +
     `${
-      formattedProducts[0].qty > bathCount
-        ? `\n${formattedProducts[0].name}:  ${bathCount}\n`
+      formattedProducts[0].qty >  countStored?.[1]
+        ? `\n${formattedProducts[0].name}:  ${countStored?.[1]||0}\n`
         : ``
     }` +
     `${
-      formattedProducts[1].qty > faceCount
-        ? `\n${formattedProducts[1].name}:  ${faceCount}\n`
+      formattedProducts[1].qty > countStored?.[2]
+        ? `\n${formattedProducts[1].name}:  ${countStored?.[2]||0}\n`
         : ``
     } ` +
     "\nThe Address You have to deliver is \n" +
@@ -110,7 +149,7 @@ export default function Payment({
     console.log(data);
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
-      name: "Narumugai",
+      name: "Narumugai Herbals",
       currency: data.currency,
       amount: data.amount,
       order_id: data.id,
@@ -142,15 +181,9 @@ export default function Payment({
 
   const sendOrderMessage = async () => {
     try {
-      var stockOne =
-        formattedProducts[0].qty - bathCount <= 0
-          ? 0
-          : formattedProducts[0].qty - bathCount;
-
-      var stockTwo =
-        formattedProducts[1].qty - faceCount <= 0
-          ? 0
-          : formattedProducts[1].qty - faceCount;
+      var stockOne = formattedProducts[0].qty - (countStored?.[1] ? countStored[1]: 0);
+          
+      var stockTwo = formattedProducts[1].qty -  (countStored?.[2] ? countStored[2]: 0);
       const { data } = await axios.post("/api/qty", {
         stockOne,
         stockTwo,
@@ -188,7 +221,7 @@ export default function Payment({
             Payment!
           </h1>
 
-          <div className="bg-gray-300 rounded-2xl p-3 m-5  bg-opacity-50">
+          <div className="bg-gray-300 rounded-sm p-3 m-5  bg-opacity-50">
             <div className="grid grid-rows-5 space-y-2">
               <div className=" row-span-1">
                 <div className="flex justify-between items-center">
