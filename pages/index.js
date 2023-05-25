@@ -92,12 +92,7 @@ export default function Home({
                         {formattedProduct.name}
                       </h1>
                       <p className=" text-gray-400 text-sm ">
-                        ut eleifend mi ante vitae nisl. Suspendisse dapibus in
-                        felis ac ultricies. Cras eget commodo lacus. Integer non
-                        consequat nulla. Proin scelerisque erat et ipsum
-                        venenatis, sit amet hendrerit urna posuere. Aliquam
-                        pharetra, enim tincidunt ullamcorper gravida, tortor
-                        eros ultrices erat, in blandit ante nisi vel augue.
+                        {formattedProduct.description}
                       </p>
                     </div>
                     <div className="text-center p-3 pb-10">
