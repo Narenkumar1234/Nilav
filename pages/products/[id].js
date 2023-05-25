@@ -1,11 +1,10 @@
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { PrismaClient } from "@prisma/client";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Loading from "@/components/loading";
-import Image from "next/image";
 
 export async function getServerSideProps(context) {
   try {
@@ -61,14 +60,27 @@ export default function Products({
   const router = useRouter();
   const { id } = router.query;
   var id1 = 0;
-  formattedProduct.qty &&
-    count[formattedProduct.id] === undefined &&
-    setCount((prevCount) => {
-      return {
-        ...prevCount,
-        [formattedProduct.id]: 1,
-      };
-    });
+  var [maxHeight, setMaxHeight] = useState(0);
+
+  useEffect(() => {
+    const buttonElement = document.getElementById("button");
+    const topContentElement = document.getElementById("topContent");
+    const viewportHeight = window.innerHeight;
+
+    if (buttonElement && topContentElement) {
+      const buttonHeight = buttonElement.offsetHeight;
+      const topContentHeight = topContentElement.offsetHeight;
+
+      setMaxHeight(viewportHeight - (buttonHeight + topContentHeight));
+    }
+  }, []);
+
+
+  function splitPara(paragraph) {
+    return paragraph
+      .split(".")
+      .map((val) => val.trim()).filter((val) => val.length > 0);
+  }
 
   function handleAddToCart() {
     setAddOrGo(false);
@@ -149,137 +161,154 @@ export default function Products({
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
-      <Navbar page="2" setIsLoading={setIsLoading} />
-      <div className="product-page-image-div p-5 py-5">
-        <img
-          className="w-11/12 h-full mx-auto object-cover rounded-2xl"
-          src={formattedProduct.image}
-          alt="productImg"
-          width={"100%"}
-        />
-      </div>
-      <div className="px-10 flex items-center font-bold justify-between">
-        <h1>{formattedProduct.name}</h1>
-        <h1>
-          ₹
-          {price[formattedProduct.id]
-            ? +price[formattedProduct.id]
-            : +productOnePriceList[0].price}
-        </h1>
-      </div>
-      <div className="px-10 flex items-center justify-between py-5">
-        <div className="flex items-center align-middle ">
-          <h1 className="pr-4">Qty: </h1>
-          <select
-            defaultValue={price[formattedProduct.id]}
-            onChange={(e) => {
-              const selectedOption = e.target.options[e.target.selectedIndex];
-              setQty(selectedOption.getAttribute("data-qty-per-gram"));
-              setPrice((prevPrice) => ({
-                ...prevPrice,
-                [formattedProduct.id]: e.target.value,
-              }));
-            }}
-            className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
-          >
-            {productOnePriceList.map(({ key = id1++ }) => (
-              <option
-                key={key}
-                className="text-black"
-                value={productOnePriceList[key].price}
-                data-qty-per-gram={productOnePriceList[key].qtyPerGram}
-              >
-                {productOnePriceList[key].qtyPerGram}
-                {id == 1 ? "ml" : "g"}
-              </option>
-            ))}
-          </select>
+      <div id="topContent" className="overflowHidden">
+        <Navbar page="2" setIsLoading={setIsLoading} />
+
+        <div className="product-page-image-div p-5 py-5">
+          <img
+            className="w-11/12 h-full mx-auto object-cover rounded-2xl"
+            src={formattedProduct.image}
+            alt="productImg"
+            width={"100%"}
+          />
         </div>
-        {formattedProduct.qty === 0 ? (
-          <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
-            Out of Stock
+        <div className="px-10 flex items-center font-bold justify-between">
+          <h1>{formattedProduct.name}</h1>
+          <h1>
+            ₹
+            {price[formattedProduct.id]
+              ? +price[formattedProduct.id]
+              : +productOnePriceList[0].price}
+          </h1>
+        </div>
+        <div className="px-10 flex items-center justify-between py-5">
+          <div className="flex items-center align-middle ">
+            <h1 className="pr-4">Qty: </h1>
+            <select
+              defaultValue={price[formattedProduct.id]}
+              onChange={(e) => {
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                setQty(selectedOption.getAttribute("data-qty-per-gram"));
+                setPrice((prevPrice) => ({
+                  ...prevPrice,
+                  [formattedProduct.id]: e.target.value,
+                }));
+              }}
+              className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
+            >
+              {productOnePriceList.map(({ key = id1++ }) => (
+                <option
+                  key={key}
+                  className="text-black"
+                  value={productOnePriceList[key].price}
+                  data-qty-per-gram={productOnePriceList[key].qtyPerGram}
+                >
+                  {productOnePriceList[key].qtyPerGram}
+                  {id == 1 ? "ml" : "g"}
+                </option>
+              ))}
+            </select>
           </div>
-        ) : (
-          <div>
-            <div className="flex items-center">
-              <button
-                className="p-0.5 border border-green-800 rounded-full"
-                onClick={() => {
-                  count[formattedProduct.id] > 1 &&
-                    setCount((prevCounts) => ({
-                      ...prevCounts,
-                      [formattedProduct.id]:
-                        (count[formattedProduct.id] || 1) - 1,
-                    }));
-                }}
-              >
-                <MinusSmIcon className="h-5 w-5 text-black" />
-              </button>
-              <span className="mx-2">{count[formattedProduct.id] || 1}</span>
-              <button
-                className="p-0.5 border  border-green-800 rounded-full"
-                onClick={() => {
-                  {
-                    console.log(count[formattedProduct.id]);
-                  }
-                  count[formattedProduct.id] < formattedProduct.qty &&
-                    setCount((prevCounts) => ({
-                      ...prevCounts,
-                      [formattedProduct.id]:
-                        (count[formattedProduct.id] || 1) + 1,
-                    }));
-                }}
-              >
-                <PlusSmIcon className="h-5 w-5 text-black" />
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="px-10 space-y-2">
-        <div>
-          <h1>Product Description:</h1>
-          <p className="text-gray-400 text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-        </div>
-        <div>
-          <h1>Product Instruction:</h1>
-          <p className="text-gray-400 text-sm">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
-          </p>
-        </div>
-        {formattedProduct.qty ? (
-          count[formattedProduct.id] || 1 ? (
-            <div className="fixed bottom-0 left-0 w-full flex  bg-white py-4 shadow">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-end">
-                  <Link
-                    href={"/myCart"}
-                    onClick={handleBuyNow}
-                    className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
-                  >
-                    Buy Now
-                  </Link>
-                  <Link
-                    href={addOrGo ? `/products/${id}` : "/myCart"}
-                    onClick={handleAddToCart}
-                    className="bg-theme text-white font-semibold px-4 py-2 rounded"
-                  >
-                    {addOrGo ? "Add to Cart" : "Go to Cart"}
-                  </Link>
-                </div>
-              </div>
+          {formattedProduct.qty === 0 ? (
+            <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+              Out of Stock
             </div>
           ) : (
-            <div></div>
-          )
-        ) : (
-          <div></div>
-        )}
+            <div>
+              <div className="flex items-center">
+                <button
+                  className="p-0.5 border border-green-800 rounded-full"
+                  onClick={() => {
+                    count[formattedProduct.id] > 1 &&
+                      setCount((prevCounts) => ({
+                        ...prevCounts,
+                        [formattedProduct.id]:
+                          (count[formattedProduct.id] || 1) - 1,
+                      }));
+                  }}
+                >
+                  <MinusSmIcon className="h-5 w-5 text-black" />
+                </button>
+                <span className="mx-2">{count[formattedProduct.id] || 1}</span>
+                <button
+                  className="p-0.5 border  border-green-800 rounded-full"
+                  onClick={() => {
+                    {
+                      console.log(count[formattedProduct.id]);
+                    }
+                    count[formattedProduct.id] < formattedProduct.qty &&
+                      setCount((prevCounts) => ({
+                        ...prevCounts,
+                        [formattedProduct.id]:
+                          (count[formattedProduct.id] || 1) + 1,
+                      }));
+                  }}
+                >
+                  <PlusSmIcon className="h-5 w-5 text-black" />
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+      <div
+        style={{ maxHeight: `${maxHeight}px` }}
+        className="px-10 space-y-2 pb-6  overflow-y-auto"
+      >
+        <div className="text-gray-700">
+          <h1>Product Description:</h1>
+          <p className="text-gray-400 text-sm">
+            {formattedProduct.description}
+          </p>
+        </div>
+        <div className="text-gray-700">
+          <h1>Direction of Use:</h1>
+          <div className="text-gray-400 text-sm">
+            {splitPara(formattedProduct.instruction).map((key, index) => (
+              <li key={index}>{key}</li>
+            ))}
+          </div>
+        </div>
+        <div className="text-gray-700">
+          <h1>Storage:</h1>
+          <p className="text-gray-400 text-sm">{formattedProduct.storage}</p>
+        </div>
+        <div className="text-gray-700">
+          <h1>Special Note:</h1>
+          <i className="text-gray-400 text-sm">
+            {formattedProduct.specialNote}
+          </i>
+        </div>
+      </div>
+      {count[formattedProduct.id] || 1 ? (
+        <div
+          id="button"
+          className={`fixed bottom-0 ${
+            formattedProduct.qty ? "visible" : "invisible"
+          }  left-0 w-full flex  bg-white py-4 shadow`}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-end">
+              <Link
+                href={"/myCart"}
+                onClick={handleBuyNow}
+                className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
+              >
+                Buy Now
+              </Link>
+              <Link
+                href={addOrGo ? `/products/${id}` : "/myCart"}
+                onClick={handleAddToCart}
+                className="bg-theme text-white font-semibold px-4 py-2 rounded"
+              >
+                {addOrGo ? "Add to Cart" : "Go to Cart"}
+              </Link>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
 }

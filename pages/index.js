@@ -4,7 +4,6 @@ import PromptMobile from "@/components/PromptMobile";
 import { useState } from "react";
 import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
-import Image from "next/image";
 
 export async function getServerSideProps() {
   try {

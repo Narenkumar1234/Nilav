@@ -5,7 +5,6 @@ import { PrismaClient } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
-import Image from "next/image";
 
 export async function getServerSideProps() {
   try {

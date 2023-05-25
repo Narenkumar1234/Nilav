@@ -19,6 +19,12 @@ model Products {
   price       Price[]
   createdAt   DateTime @default(now())
   image       String
+  description String
+  instruction String
+  storage String
+  benefits String
+  specialNote String 
+  
 }
 
 

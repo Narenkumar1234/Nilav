@@ -6,8 +6,15 @@
   height: 30vh; /* 30% of the viewport height */
   width: 100%;
 }
+.overflowHidden{
+  overflow: hidden;
+}
+#steps img {
+  width: 24px;
+  height: 24px;
+  padding-right: 8px;
+}
 body {
-  /* overflow: hidden; */
   font-family: "Lexend Deca";
 }
 .paddingBody {
