@@ -233,10 +233,6 @@ export default function Products({
                 <button
                   className="p-0.5 border  border-green-800 rounded-full"
                   onClick={() => {
-                    {
-                      console.log(count[formattedProduct.id]);
-                    }
-                    count[formattedProduct.id] < formattedProduct.qty &&
                       setCount((prevCounts) => ({
                         ...prevCounts,
                         [formattedProduct.id]:
