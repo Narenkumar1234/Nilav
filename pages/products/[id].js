@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import Loading from "@/components/loading";
+import HTMLReactParser from "html-react-parser";
 
 export async function getServerSideProps(context) {
   try {
@@ -78,7 +79,7 @@ export default function Products({
 
   function splitPara(paragraph) {
     return paragraph
-      .split(".")
+      .split("\n")
       .map((val) => val.trim()).filter((val) => val.length > 0);
   }
 
@@ -259,9 +260,9 @@ export default function Products({
         </div>
         <div className="text-gray-700">
           <h1>Direction of Use:</h1>
-          <div className="text-gray-400 text-sm">
+          <div id="steps" className="text-gray-400 text-sm">
             {splitPara(formattedProduct.instruction).map((key, index) => (
-              <li key={index}>{key}</li>
+              <div className="my-2" key={index}>{HTMLReactParser(key)}</div>
             ))}
           </div>
         </div>

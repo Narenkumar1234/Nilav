@@ -12,7 +12,8 @@
 #steps img {
   width: 24px;
   height: 24px;
-  padding-right: 8px;
+  display: inline;
+  margin-right: 5px;
 }
 body {
   font-family: "Lexend Deca";
