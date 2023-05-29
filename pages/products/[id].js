@@ -62,25 +62,48 @@ export default function Products({
   const { id } = router.query;
   var id1 = 0;
   var [maxHeight, setMaxHeight] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); 
+     };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const buttonElement = document.getElementById("button");
-    const topContentElement = document.getElementById("topContent");
+    const priceContent = document.getElementById("priceContent");
+    const quantityContent = document.getElementById("quantityContent");
+    const imageContent = document.getElementById("imageContent");
+    const navContent = document.getElementById("navContent")
     const viewportHeight = window.innerHeight;
 
-    if (buttonElement && topContentElement) {
+    if (buttonElement && priceContent && quantityContent && imageContent) {
       const buttonHeight = buttonElement.offsetHeight;
-      const topContentHeight = topContentElement.offsetHeight;
+      const topContentHeight =
+        navContent.offsetHeight +
+        priceContent.offsetHeight +
+        quantityContent.offsetHeight +
+        imageContent.offsetHeight;
 
       setMaxHeight(viewportHeight - (buttonHeight + topContentHeight));
     }
   }, []);
 
-
   function splitPara(paragraph) {
     return paragraph
       .split("\n")
-      .map((val) => val.trim()).filter((val) => val.length > 0);
+      .map((val) => val.trim())
+      .filter((val) => val.length > 0);
   }
 
   function handleAddToCart() {
@@ -118,6 +141,7 @@ export default function Products({
     localStorage.setItem("count", JSON.stringify(count));
   }
   function handleBuyNow() {
+    setIsLoading(true);
     setCartItems((prevItems) => {
       //set the product quantity per gram
       const updatedCartItems = {
@@ -162,150 +186,177 @@ export default function Products({
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
-      <div id="topContent" className="overflowHidden">
-        <Navbar page="2" setIsLoading={setIsLoading} />
 
-        <div className="product-page-image-div p-5 py-5">
-          <img
-            className="w-11/12 h-full mx-auto object-cover rounded-2xl"
-            src={formattedProduct.image}
-            alt="productImg"
-            width={"100%"}
-          />
-        </div>
-        <div className="px-10 flex items-center font-bold justify-between">
-          <h1>{formattedProduct.name}</h1>
-          <h1>
-            ₹
-            {price[formattedProduct.id]
-              ? +price[formattedProduct.id]
-              : +productOnePriceList[0].price}
-          </h1>
-        </div>
-        <div className="px-10 flex items-center justify-between py-5">
-          <div className="flex items-center align-middle ">
-            <h1 className="pr-4">Qty: </h1>
-            <select
-              defaultValue={price[formattedProduct.id]}
-              onChange={(e) => {
-                const selectedOption = e.target.options[e.target.selectedIndex];
-                setQty(selectedOption.getAttribute("data-qty-per-gram"));
-                setPrice((prevPrice) => ({
-                  ...prevPrice,
-                  [formattedProduct.id]: e.target.value,
-                }));
-              }}
-              className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
-            >
-              {productOnePriceList.map(({ key = id1++ }) => (
-                <option
-                  key={key}
-                  className="text-black"
-                  value={productOnePriceList[key].price}
-                  data-qty-per-gram={productOnePriceList[key].qtyPerGram}
-                >
-                  {productOnePriceList[key].qtyPerGram}
-                  {id == 1 ? "ml" : "g"}
-                </option>
-              ))}
-            </select>
-          </div>
-          {formattedProduct.qty === 0 ? (
-            <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
-              Out of Stock
+      {/* top content with nav bar  */}
+      <div id="navContent">
+        <Navbar page="2" setIsLoading={setIsLoading} />
+      </div>
+      <div className="">
+        <div className="overflowHidden lg:gird md:grid grid-cols-2">
+          <container className="">
+            <div id="imageContent" className="product-page-image-div p-5 py-5 ">
+              <img
+                className="w-11/12 h-full mx-auto object-cover rounded-2xl"
+                src={formattedProduct.image}
+                alt="productImg"
+                width={"100%"}
+              />
             </div>
-          ) : (
-            <div>
-              <div className="flex items-center">
-                <button
-                  className="p-0.5 border border-green-800 rounded-full"
-                  onClick={() => {
-                    count[formattedProduct.id] > 1 &&
-                      setCount((prevCounts) => ({
-                        ...prevCounts,
-                        [formattedProduct.id]:
-                          (count[formattedProduct.id] || 1) - 1,
-                      }));
+          </container>
+          <container className="lg:p-5 md:p-5">
+            <div
+              id="priceContent"
+              className="px-10 flex items-center font-bold justify-between"
+            >
+              <h1>{formattedProduct.name}</h1>
+              <h1>
+                ₹
+                {price[formattedProduct.id]
+                  ? +price[formattedProduct.id]
+                  : +productOnePriceList[0].price}
+              </h1>
+            </div>
+            <div
+              id="quantityContent"
+              className="px-10 flex items-center justify-between py-5"
+            >
+              <div className="flex items-center align-middle ">
+                <h1 className="pr-4">Qty: </h1>
+                <select
+                  defaultValue={price[formattedProduct.id]}
+                  onChange={(e) => {
+                    const selectedOption =
+                      e.target.options[e.target.selectedIndex];
+                    setQty(selectedOption.getAttribute("data-qty-per-gram"));
+                    setPrice((prevPrice) => ({
+                      ...prevPrice,
+                      [formattedProduct.id]: e.target.value,
+                    }));
                   }}
+                  className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
                 >
-                  <MinusSmIcon className="h-5 w-5 text-black" />
-                </button>
-                <span className="mx-2">{count[formattedProduct.id] || 1}</span>
-                <button
-                  className="p-0.5 border  border-green-800 rounded-full"
-                  onClick={() => {
-                      setCount((prevCounts) => ({
-                        ...prevCounts,
-                        [formattedProduct.id]:
-                          (count[formattedProduct.id] || 1) + 1,
-                      }));
-                  }}
-                >
-                  <PlusSmIcon className="h-5 w-5 text-black" />
-                </button>
+                  {productOnePriceList.map(({ key = id1++ }) => (
+                    <option
+                      key={key}
+                      className="text-black"
+                      value={productOnePriceList[key].price}
+                      data-qty-per-gram={productOnePriceList[key].qtyPerGram}
+                    >
+                      {productOnePriceList[key].qtyPerGram}
+                      {id == 1 ? "ml" : "g"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {formattedProduct.qty === 0 ? (
+                <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                  Out of Stock
+                </div>
+              ) : (
+                <div>
+                  <div className="flex items-center">
+                    <button
+                      className="p-0.5 border border-green-800 rounded-full"
+                      onClick={() => {
+                        count[formattedProduct.id] > 1 &&
+                          setCount((prevCounts) => ({
+                            ...prevCounts,
+                            [formattedProduct.id]:
+                              (count[formattedProduct.id] || 1) - 1,
+                          }));
+                      }}
+                    >
+                      <MinusSmIcon className="h-5 w-5 text-black" />
+                    </button>
+                    <span className="mx-2">
+                      {count[formattedProduct.id] || 1}
+                    </span>
+                    <button
+                      className="p-0.5 border  border-green-800 rounded-full"
+                      onClick={() => {
+                        setCount((prevCounts) => ({
+                          ...prevCounts,
+                          [formattedProduct.id]:
+                            (count[formattedProduct.id] || 1) + 1,
+                        }));
+                      }}
+                    >
+                      <PlusSmIcon className="h-5 w-5 text-black" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* scrolabble content */}
+            <div
+              style={isMobile ? { maxHeight: `${maxHeight}px` } : null}
+              className="px-10 space-y-2 pb-6 overflow-y-auto"
+            >
+              <div className="text-gray-700">
+                <h1>Product Description:</h1>
+                <p className="text-gray-400 text-sm">
+                  {formattedProduct.description}
+                </p>
+              </div>
+              <div className="text-gray-700">
+                <h1>Direction of Use:</h1>
+                <div id="steps" className="text-gray-400 text-sm ">
+                  {splitPara(formattedProduct.instruction).map((key, index) => (
+                    <div className="my-2" key={index}>
+                      {HTMLReactParser(key)}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="text-gray-700">
+                <h1>Storage:</h1>
+                <p className="text-gray-400 text-sm">
+                  {formattedProduct.storage}
+                </p>
+              </div>
+              <div className="text-gray-700">
+                <h1>Special Note:</h1>
+                <i className="text-gray-400 text-sm">
+                  {formattedProduct.specialNote}
+                </i>
               </div>
             </div>
-          )}
+          </container>
         </div>
-      </div>
-      <div
-        style={{ maxHeight: `${maxHeight}px` }}
-        className="px-10 space-y-2 pb-6  overflow-y-auto"
-      >
-        <div className="text-gray-700">
-          <h1>Product Description:</h1>
-          <p className="text-gray-400 text-sm">
-            {formattedProduct.description}
-          </p>
-        </div>
-        <div className="text-gray-700">
-          <h1>Direction of Use:</h1>
-          <div id="steps" className="text-gray-400 text-sm">
-            {splitPara(formattedProduct.instruction).map((key, index) => (
-              <div className="my-2" key={index}>{HTMLReactParser(key)}</div>
-            ))}
-          </div>
-        </div>
-        <div className="text-gray-700">
-          <h1>Storage:</h1>
-          <p className="text-gray-400 text-sm">{formattedProduct.storage}</p>
-        </div>
-        <div className="text-gray-700">
-          <h1>Special Note:</h1>
-          <i className="text-gray-400 text-sm">
-            {formattedProduct.specialNote}
-          </i>
-        </div>
-      </div>
-      {count[formattedProduct.id] || 1 ? (
-        <div
-          id="button"
-          className={`fixed bottom-0 ${
-            formattedProduct.qty ? "visible" : "invisible"
-          }  left-0 w-full flex  bg-white py-4 shadow`}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-end">
-              <Link
-                href={"/myCart"}
-                onClick={handleBuyNow}
-                className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
-              >
-                Buy Now
-              </Link>
-              <Link
-                href={addOrGo ? `/products/${id}` : "/myCart"}
-                onClick={handleAddToCart}
-                className="bg-theme text-white font-semibold px-4 py-2 rounded"
-              >
-                {addOrGo ? "Add to Cart" : "Go to Cart"}
-              </Link>
+        {/* Add to cart and buy now content */}
+        {count[formattedProduct.id] || 1 ? (
+          <div
+            id="button"
+            className={`fixed bottom-0 ${
+              formattedProduct.qty ? "visible" : "invisible"
+            }  left-0 w-full flex  bg-white py-4 shadow`}
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
+              <div className="flex justify-end">
+                <Link
+                  href={"/myCart"}
+                  onClick={handleBuyNow}
+                  className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
+                >
+                  Buy Now
+                </Link>
+                <Link
+                  href={addOrGo ? `/products/${id}` : "/myCart"}
+                  onClick={handleAddToCart}
+                  className="bg-theme text-white font-semibold px-4 py-2 rounded"
+                >
+                  {addOrGo ? "Add to Cart" : "Go to Cart"}
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div></div>
-      )}
+        ) : (
+          <div></div>
+        )}
+
+        {/* on tablet desktop closing div*/}
+      </div>
     </>
   );
 }

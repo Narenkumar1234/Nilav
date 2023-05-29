@@ -80,7 +80,6 @@ export default function Cart({
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
-      <PromptMobile />
       <div className="overflow-hidden mx-aut">
         <Navbar page="2" setIsLoading={setIsLoading}></Navbar>
         <div className="bg-subtheme h-screen w-full">
@@ -139,143 +138,148 @@ export default function Cart({
               </div>
             </div>
           )}
-          {filteredProducts.map((product) =>
-            count[product.id] ? (
-              <div key={product.id}>
-                <div className="flex relative p-5">
-                  <div className="w-24 h-24 overflow-hidden">
-                    <img
-                      className="rounded-xl object-cover h-full w-full"
-                      src={product.image}
-                      width={"100%"}
-                      alt="Product Image"
-                    />
-                  </div>
-                  <div className="grid grid-rows-3 ml-2">
-                    <span className="text-sm font-bold">{product.name}</span>
-                    <span className="text-sm text-gray-500 ">
-                      {cartItemsStored[product.id]}
-                      {product.id == 1 ? "ml" : "g"}
-                    </span>
-                    <span className="flex justify-between items-center">
-                      <span>
-                        ₹{priceStored[product.id] * countStored[product.id]}
+          <div className="">
+            {filteredProducts.map((product) =>
+              count[product.id] ? (
+                <container key={product.id} className="col-span-1 ">
+                  <div className="flex relative p-5 lg:w-3/12 md:w:3/12">
+                    <div className="w-24 h-24 overflow-hidden">
+                      <img
+                        className="rounded-xl object-cover h-full w-full"
+                        src={product.image}
+                        width={"100%"}
+                        alt="Product Image"
+                      />
+                    </div>
+                    <div className="grid grid-rows-3 ml-2">
+                      <span className="text-sm font-bold">{product.name}</span>
+                      <span className="text-sm text-gray-500 ">
+                        {cartItemsStored[product.id]}
+                        {product.id == 1 ? "ml" : "g"}
                       </span>
-                    </span>
-                  </div>
-                  {product.qty === 0 ? (
-                    <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
-                      Out of Stock
+                      <span className="flex justify-between items-center">
+                        <span>
+                          ₹{priceStored[product.id] * countStored[product.id]}
+                        </span>
+                      </span>
                     </div>
-                  ) : (
-                    <div className="absolute bottom-6 right-5">
-                      <div className="flex items-center">
-                        <button
-                          className="p-0.5 border border-black rounded-full"
-                          onClick={() => {
-                            count[product.id] > 0 &&
-                              setCount((prevCounts) => {
-                                const existingCount =
-                                  JSON.parse(localStorage.getItem("count")) ||
-                                  {};
-                                const updatedCount =
-                                  (prevCounts[product.id] || 0) - 1;
-                                localStorage.setItem(
-                                  "count",
-                                  JSON.stringify({
-                                    ...existingCount,
-                                    [product.id]: updatedCount,
-                                  })
-                                );
-                                setCountStored(
-                                  JSON.parse(localStorage.getItem("count"))
-                                );
-
-                                var countKey = Object.keys(countStored).filter(
-                                  (key) => countStored[key] > 0
-                                );
-                                setFilteredProducts(
-                                  formattedProducts.filter((formattedProduct) =>
-                                    countKey.includes(
-                                      String(formattedProduct.id)
-                                    )
-                                  )
-                                );
-                                return {
-                                  ...prevCounts,
-                                  [product.id]: updatedCount,
-                                };
-                              });
-                            count[product.id] < 2 &&
-                              localStorage.setItem(
-                                "cartItems",
-                                JSON.stringify(cartItems)
-                              );
-                          }}
-                        >
-                          <MinusSmIcon className="h-5 w-5 text-black" />
-                        </button>
-                        <span className="mx-2">{countStored[product.id]}</span>
-                        <button
-                          className="p-0.5 border  border-black rounded-full"
-                          onClick={() => {
-                            product.qty > count[product.id] &&
-                              setCount((prevCounts) => {
-                                const existingCount =
-                                  JSON.parse(localStorage.getItem("count")) ||
-                                  {};
-                                const updatedCount =
-                                  (prevCounts[product.id] || 0) + 1;
-                                localStorage.setItem(
-                                  "count",
-                                  JSON.stringify({
-                                    ...existingCount,
-                                    [product.id]: updatedCount,
-                                  })
-                                );
-                                return {
-                                  ...prevCounts,
-                                  [product.id]: updatedCount,
-                                };
-                              });
-                          }}
-                        >
-                          <PlusSmIcon className="h-5 w-5 text-black" />
-                        </button>
+                    {product.qty === 0 ? (
+                      <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                        Out of Stock
                       </div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="absolute bottom-6 right-5">
+                        <div className="flex items-center">
+                          <button
+                            className="p-0.5 border border-black rounded-full"
+                            onClick={() => {
+                              count[product.id] > 0 &&
+                                setCount((prevCounts) => {
+                                  const existingCount =
+                                    JSON.parse(localStorage.getItem("count")) ||
+                                    {};
+                                  const updatedCount =
+                                    (prevCounts[product.id] || 0) - 1;
+                                  localStorage.setItem(
+                                    "count",
+                                    JSON.stringify({
+                                      ...existingCount,
+                                      [product.id]: updatedCount,
+                                    })
+                                  );
+                                  setCountStored(
+                                    JSON.parse(localStorage.getItem("count"))
+                                  );
+
+                                  var countKey = Object.keys(
+                                    countStored
+                                  ).filter((key) => countStored[key] > 0);
+                                  setFilteredProducts(
+                                    formattedProducts.filter(
+                                      (formattedProduct) =>
+                                        countKey.includes(
+                                          String(formattedProduct.id)
+                                        )
+                                    )
+                                  );
+                                  return {
+                                    ...prevCounts,
+                                    [product.id]: updatedCount,
+                                  };
+                                });
+                              count[product.id] < 2 &&
+                                localStorage.setItem(
+                                  "cartItems",
+                                  JSON.stringify(cartItems)
+                                );
+                            }}
+                          >
+                            <MinusSmIcon className="h-5 w-5 text-black" />
+                          </button>
+                          <span className="mx-2">
+                            {countStored[product.id]}
+                          </span>
+                          <button
+                            className="p-0.5 border  border-black rounded-full"
+                            onClick={() => {
+                              product.qty > count[product.id] &&
+                                setCount((prevCounts) => {
+                                  const existingCount =
+                                    JSON.parse(localStorage.getItem("count")) ||
+                                    {};
+                                  const updatedCount =
+                                    (prevCounts[product.id] || 0) + 1;
+                                  localStorage.setItem(
+                                    "count",
+                                    JSON.stringify({
+                                      ...existingCount,
+                                      [product.id]: updatedCount,
+                                    })
+                                  );
+                                  return {
+                                    ...prevCounts,
+                                    [product.id]: updatedCount,
+                                  };
+                                });
+                            }}
+                          >
+                            <PlusSmIcon className="h-5 w-5 text-black" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <hr className="mx-5 border-gray-300 shadow-sm border-0.5 rounded-full"></hr>
+                </container>
+              ) : (
+                <div key={product.id}></div>
+              )
+            )}
+            {filteredProducts.length ? (
+              <div className="fixed bottom-0 left-0 w-full py-4 shadow">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="flex justify-center">
+                    <Link
+                      onClick={() => setIsLoading(true)}
+                      href="/"
+                      className="bg-theme text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
+                    >
+                      Continue Shopping
+                    </Link>
+                    <Link
+                      onClick={() => setIsLoading(true)}
+                      href="/customerDetails"
+                      className="bg-black text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
+                    >
+                      Checkout
+                    </Link>
+                  </div>
                 </div>
-                <hr className="mx-5 border-gray-300 shadow-sm border-0.5 rounded-full"></hr>
               </div>
             ) : (
-              <div key={product.id}></div>
-            )
-          )}
-          {filteredProducts.length ? (
-            <div className="fixed bottom-0 left-0 w-full py-4 shadow">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-center">
-                  <Link
-                    onClick={() => setIsLoading(true)}
-                    href="/"
-                    className="bg-theme text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
-                  >
-                    Continue Shopping
-                  </Link>
-                  <Link
-                    onClick={() => setIsLoading(true)}
-                    href="/customerDetails"
-                    className="bg-black text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
-                  >
-                    Checkout
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div></div>
-          )}
+              <div></div>
+            )}
+          </div>
         </div>
       </div>
     </>

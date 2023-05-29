@@ -2,11 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-.product-page-image-div {
+.home-page-image-div {
   height: 30vh; /* 30% of the viewport height */
   width: 100%;
 }
-.overflowHidden{
+
+.product-div {
+  width: 100%;
+}
+
+.product-page-image-div {
+    height: 50vh; /* 30% of the viewport height */
+    width: 80%;
+  }
+
+@media (max-width: 767px) {
+  .home-page-image-div {
+    height: 30vh; /* 30% of the viewport height */
+    width: 100%;
+  }
+
+  .product-page-image-div {
+    height: 30vh; /* 30% of the viewport height */
+    width: 100%;
+  }
+  .product-div {
+    width: 100%;
+  }
+}
+
+.overflowHidden {
   overflow: hidden;
 }
 #steps img {

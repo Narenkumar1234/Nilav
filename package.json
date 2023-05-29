@@ -20,6 +20,7 @@
     "postcss": "8.4.23",
     "razorpay": "^2.8.6",
     "react": "18.2.0",
+    "react-breakpoint": "^4.0.0",
     "react-dom": "18.2.0",
     "react-switch": "^7.0.0",
     "shortid": "^2.2.16",
