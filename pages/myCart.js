@@ -79,7 +79,7 @@ export default function Cart({
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
-      <div className="overflow-hidden mx-aut">
+      <div className="overflow-hidden mx-auto">
         <Navbar page="2" setIsLoading={setIsLoading}></Navbar>
         <div className="bg-subtheme h-screen w-full">
           <h1 className="font-bold items-center justify-center flex text-lg pt-10 ">
