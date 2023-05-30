@@ -45,7 +45,7 @@ export default function TermsAndConditions(){
               Disclaimer of Warranties
             </h2>
             <p className="mb-8">
-              We provide our products and services "as is" without any
+              We provide our products and services as without any
               warranties or representations, expressed or implied. We disclaim
               all warranties, including but not limited to, the implied
               warranties of merchantability and fitness for a particular
