@@ -37,7 +37,7 @@ export default function Navbar({ page, setIsLoading }) {
             width={"50%"}
           />
         </div>
-        <h1>Narumugai</h1>
+        <Link href="/">Narumugai</Link>
       </div>
       <div className="flex items-center justify-center w-12">
         <button
