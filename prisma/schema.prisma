@@ -19,11 +19,11 @@ model Products {
   price       Price[]
   createdAt   DateTime @default(now())
   image       String
-  description String
-  instruction String
-  storage String
-  benefits String
-  specialNote String 
+  description String?
+  instruction String?
+  storage String?
+  benefits String?
+  specialNote String? 
   
 }
 
@@ -34,4 +34,15 @@ model Price {
   priceId Int  @default(autoincrement()) @unique
   qtyPerGram   Int 
   price Float
+}
+
+model Order {
+  id        Int     @id @default(autoincrement())
+  orderId   String  @unique
+  name      String
+  mobile    String
+  price     Float
+  address   String
+  paymentId String
+  products  String
 }
