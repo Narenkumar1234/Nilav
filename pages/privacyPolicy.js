@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <>
       {isLoading ? <Loading /> : <div></div>}
-      <Navbar page="5" setIsLoading={setIsLoading}></Navbar>
+      <Navbar page="9" setIsLoading={setIsLoading}></Navbar>
       <div className="bg-gray-100 text-gray-800">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>

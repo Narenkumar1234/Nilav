@@ -189,7 +189,7 @@ export default function Products({
 
       {/* top content with nav bar  */}
       <div id="navContent">
-        <Navbar page="2" setIsLoading={setIsLoading} />
+        <Navbar page="5" setIsLoading={setIsLoading} />
       </div>
       <div className="">
         <div className="overflowHidden lg:gird md:grid grid-cols-2">

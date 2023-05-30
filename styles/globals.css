@@ -63,3 +63,16 @@ body {
   bottom: 20px; /* adjust the bottom position based on your mobile image */
   /* Add other styles for your content */
 }
+
+.slider-panel {
+  animation: slide-in 0.3s ease-in-out forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

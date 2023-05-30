@@ -1,9 +1,13 @@
 import Navbar from "@/components/Navbar";
+import Loading from "@/components/loading";
+import { useState } from "react";
 
 export default function TermsAndConditions() {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <Navbar page="6"></Navbar>
+      {isLoading ? <Loading /> : <div></div>}
+      <Navbar page="7" setIsLoading={setIsLoading}></Navbar>
       <div className="bg-gray-100 text-gray-800">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-4">Terms and Conditions</h1>
