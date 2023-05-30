@@ -2,19 +2,19 @@ import Navbar from "@/components/Navbar";
 import Loading from "@/components/loading";
 import { useState } from "react";
 export default function PrivacyPolicy() {
-    const [isLoading,setIsLoading]=useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-    {isLoading ? <Loading/>:<div></div>}
+      {isLoading ? <Loading /> : <div></div>}
       <Navbar page="5" setIsLoading={setIsLoading}></Navbar>
       <div className="bg-gray-100 text-gray-800">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
           <p className="mb-4">Effective Date: 1 June 2023</p>
           <p className="mb-8">
-            Thank you for using our website/app. This Privacy Policy outlines
-            how we collect, use, and safeguard the personal information of our
-            users. We are committed to protecting your privacy and ensuring the
+            Thank you for using our website. This Privacy Policy outlines how we
+            collect, use, and safeguard the personal information of our users.
+            We are committed to protecting your privacy and ensuring the
             security of your personal information. Please read this policy
             carefully to understand our practices regarding your personal
             information.
@@ -82,12 +82,15 @@ export default function PrivacyPolicy() {
             Please note that while we take reasonable steps to protect your
             personal, no data transmission or storage method can be guaranteed
             as 100% secure. Therefore, we cannot guarantee the absolute security
-            of your information. By using our website/app, you consent to the
+            of your information. By using our website, you consent to the
             collection, use, and storage of your personal information as
             described in this Privacy Policy. If you have any questions or
             concerns about our privacy practices or would like to exercise your
-            rights regarding your personal information, please contact us at 
-            <a className="text-blue-500" href="mailto:narumugaiherbals2023@gmail.com">
+            rights regarding your personal information, please contact us at
+            <a
+              className="text-blue-500"
+              href="mailto:narumugaiherbals2023@gmail.com"
+            >
               <i>narumugaiherbals2023@gmail.com</i>
             </a>
             . We reserve the right to update or modify this Privacy Policy at
