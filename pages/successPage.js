@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Loading from "@/components/loading";
 
-export default function SuccessPage({ setFaceCount, setBathCount }) {
+export default function SuccessPage({ setFaceCount, setBathCount, paymentId1 }) {
   setFaceCount(1);
   setBathCount(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +31,7 @@ export default function SuccessPage({ setFaceCount, setBathCount }) {
             <br />
             <h1 className="font-bold ">Thank you for </h1>
             <h1 className="font-bold ">Shopping With us </h1>
+            <h1 className="font-bold">Your PaymentID is :{paymentId1}</h1>
           </div>
           <div className="flex items-center justify-center mt-10">
             <Link
@@ -40,6 +41,10 @@ export default function SuccessPage({ setFaceCount, setBathCount }) {
             >
               Contine Shopping
             </Link>
+          </div>
+          <div className="text-center font-bold m-3">
+            You should take a screenshot of the payment ID for reference in case of
+            order cancellation.
           </div>
         </div>
       </div>

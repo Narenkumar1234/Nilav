@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }) {
   const [selectedQtyTwo, setSelectedQtyTwo] = useState();
   const [isTN, setIsTN] = useState(true);
   const [theme, setTheme] = useState("theme");
-
+  const [paymentId,setPaymentId] = useState("");
   return (
     <Component
       {...pageProps}
@@ -48,6 +48,8 @@ export default function App({ Component, pageProps }) {
       setCartItems={setCartItems}
       price={price}
       setPrice={setPrice}
+      paymentId1={paymentId}
+      setPaymentId1={setPaymentId}
     />
   );
 }

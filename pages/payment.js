@@ -42,6 +42,8 @@ export default function Payment({
   formattedProducts,
   isTN,
   setIsTN,
+  paymentId1,
+  setPaymentId1,
 }) {
   const [total, setTotal] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -52,7 +54,7 @@ export default function Payment({
   const [priceStored, setPriceStored] = useState({});
   const [cartItemsStored, setCartItemsStored] = useState({});
   const [filterCartItems, setFilterCartItems] = useState({});
-
+  var paymentId;
   useEffect(() => {
     const cartItemsStored = JSON.parse(localStorage.getItem("cartItems"));
     const countStored = JSON.parse(localStorage.getItem("count"));
@@ -161,6 +163,9 @@ export default function Payment({
           response.razorpay_order_id &&
           response.razorpay_signature
         ) {
+          paymentId =response.razorpay_payment_id
+          setPaymentId1(response.razorpay_payment_id)
+          console.log(paymentId)
           sendOrderMessage();
           push("/successPage");
         } else {
@@ -188,7 +193,9 @@ export default function Payment({
       const { data } = await axios.post("/api/qty", {
         stockOne,
         stockTwo,
-      });
+      }).then(
+       insertOrder() 
+      );
 
       const response = await fetch("/api/whatsapp1", {
         method: "POST",
@@ -197,7 +204,7 @@ export default function Payment({
           "Content-Type": "application/json",
         },
       });
-
+      
       if (response.ok) {
         const result = await response.json();
         console.log(result);
@@ -208,6 +215,51 @@ export default function Payment({
       console.error(error);
     }
   };
+
+  const insertOrder = async () =>{
+     try {
+    const orderData = {
+      name: name,
+      mobile: phoneNumber,
+      price: totalPayableAmount,
+      address: address,
+      paymentId: paymentId,
+      products:
+        `${
+          formattedProducts[0].qty > countStored?.[1]
+            ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0}\n`
+            : ``
+        }` +
+        `${
+          formattedProducts[1].qty > countStored?.[2]
+            ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n`
+            : ``
+        } `,
+    };
+
+    // Send a POST request to the createOrder endpoint
+    const response = await fetch("/api/insertOrder", {
+      method: "POST",
+      body: JSON.stringify(orderData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Handle the response
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result);
+    } else {
+      console.error(response.statusText);
+    }
+
+    // ... remaining code ...
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   const [isLoading, setIsLoading] = useState(false);
 
   return (
