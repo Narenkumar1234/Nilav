@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+
 .product-div {
   width: 100%;
 }
@@ -41,7 +42,7 @@
   margin-right: 5px;
 }
 body {
-  font-family: "Lexend Deca";
+  font-family: 'Poppins', sans-serif;
 }
 .paddingBody {
   padding-left: 5px;

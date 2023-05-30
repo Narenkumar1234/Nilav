@@ -293,34 +293,68 @@ export default function Products({
               style={isMobile ? { maxHeight: `${maxHeight}px` } : null}
               className="px-10 space-y-2 pb-6 overflow-y-auto"
             >
-              <div className="text-gray-700">
-                <h1>Product Description:</h1>
-                <p className="text-gray-400 text-sm">
-                  {formattedProduct.description}
-                </p>
-              </div>
-              <div className="text-gray-700">
-                <h1>Direction of Use:</h1>
-                <div id="steps" className="text-gray-400 text-sm ">
-                  {splitPara(formattedProduct.instruction).map((key, index) => (
-                    <div className="my-2" key={index}>
-                      {HTMLReactParser(key)}
-                    </div>
-                  ))}
+              {formattedProduct.description ? (
+                <div className="text-gray-700">
+                  <h1>Product Description:</h1>
+                  <p className="text-gray-400 text-sm">
+                    {formattedProduct.description}
+                  </p>
                 </div>
-              </div>
-              <div className="text-gray-700">
-                <h1>Storage:</h1>
-                <p className="text-gray-400 text-sm">
-                  {formattedProduct.storage}
-                </p>
-              </div>
-              <div className="text-gray-700">
-                <h1>Special Note:</h1>
-                <i className="text-gray-400 text-sm">
-                  {formattedProduct.specialNote}
-                </i>
-              </div>
+              ) : (
+                <div></div>
+              )}
+              {formattedProduct.instruction ? (
+                <div className="text-gray-700">
+                  <h1>Direction of Use:</h1>
+                  <div id="steps" className="text-gray-400 text-sm ">
+                    {splitPara(formattedProduct.instruction).map(
+                      (key, index) => (
+                        <div className="my-2" key={index}>
+                          {HTMLReactParser(key)}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {formattedProduct.storage ? (
+                <div className="text-gray-700">
+                  <h1>Storage:</h1>
+                  <p className="text-gray-400 text-sm">
+                    {formattedProduct.storage}
+                  </p>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {formattedProduct.benefits ? (
+                <div className="text-gray-700">
+                  <h1>Benefits:</h1>
+                  <div className="text-gray-400 text-sm">
+                    {splitPara(formattedProduct.benefits).map(
+                      (key, index) => (
+                        <li className="my-2" key={index}>
+                          {key}
+                        </li>
+                      )
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              {formattedProduct.specialNote ? (
+                <div className="text-gray-700">
+                  <h1>Special Note:</h1>
+                  <i className="text-gray-400 text-sm">
+                    {formattedProduct.specialNote}
+                  </i>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </container>
         </div>

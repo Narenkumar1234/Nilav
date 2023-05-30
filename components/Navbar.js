@@ -7,13 +7,13 @@ export default function Navbar({ page, setIsLoading }) {
   return (
     <div
       className={
-        " sticky bg-theme shadow-xl  border-bg border-green-600 text-white px-2 flex justify-between items-center "
+        " sticky bg-theme shadow-xl z-20 border-bg border-green-600 text-white px-2 flex justify-between items-center "
       }
     >
       <div className="font-bold flex items-center">
         <div className="flex items-center  justify-center">
           <img
-            src="https://i.postimg.cc/SQLP4PF6/logo-removebg-preview.png"
+            src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
             alt="Watermark"
             className="border-white w-10 m-3 rounded-md"
             width={"50%"}

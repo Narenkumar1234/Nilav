@@ -1,6 +1,5 @@
 import Navbar from "../components/Navbar";
 import Link from "next/link";
-import PromptMobile from "@/components/PromptMobile";
 import { PrismaClient } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/loading";

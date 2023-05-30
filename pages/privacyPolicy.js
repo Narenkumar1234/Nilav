@@ -1,13 +1,16 @@
 import Navbar from "@/components/Navbar";
+import Loading from "@/components/loading";
+import { useState } from "react";
 export default function PrivacyPolicy() {
-  const currentDate = new Date();
+    const [isLoading,setIsLoading]=useState(false)
   return (
     <>
-      <Navbar page="5"></Navbar>
+    {isLoading ? <Loading/>:<div></div>}
+      <Navbar page="5" setIsLoading={setIsLoading}></Navbar>
       <div className="bg-gray-100 text-gray-800">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-          <p className="mb-4">Effective Date: {currentDate.toDateString()}</p>
+          <p className="mb-4">Effective Date: 1 June 2023</p>
           <p className="mb-8">
             Thank you for using our website/app. This Privacy Policy outlines
             how we collect, use, and safeguard the personal information of our
