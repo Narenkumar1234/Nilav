@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/loading";
 import { useState } from "react";
+import Layout from "./layout/layout";
 
 export default function RefundPolicy(){
     
