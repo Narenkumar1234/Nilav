@@ -1,15 +1,20 @@
 import Navbar from "@/components/Navbar";
 import Loading from "@/components/loading";
 import { useState } from "react";
+import Layout from "./layout/layout";
 
 export default function ContactDetails() {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
+    <Layout>
+    <div id="my-element" className=" lg:h-screen md:h-screen lg:p-10 md:p-10">
+        <div className="lg:relative  bg-subtheme w-full mobile-view ">
+      
       {isLoading ? <Loading /> : <div></div>}
       <Navbar page="8" setIsLoading={setIsLoading}></Navbar>
       <div className="flex h-screen z-0 relative bottom-16 items-center justify-center">
-        <div className="bg-gray-100 rounded-lg lg:p-10 md:p-10 p-5">
+        <div className="bg-white rounded-lg lg:p-10 md:p-10 p-5">
           <h1 className="text-center font-bold">Contact Us</h1>
 
           <div className="my-6 flex items-center justify-center">
@@ -53,6 +58,9 @@ export default function ContactDetails() {
           </div>
         </div>
       </div>
+      </div>
+      </div>
+    </Layout>
     </>
   );
 }
