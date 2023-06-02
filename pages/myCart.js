@@ -50,8 +50,6 @@ export default function Cart({
   const [priceStored, setPriceStored] = useState({});
   const [countStored, setCountStored] = useState({});
   const [cartItemsStored, setCartItemsStored] = useState({});
-  const [vantaEffect, setVantaEffect] = useState(null);
-  
   useEffect(() => {
     //fetch cartItems from local storage
     try {

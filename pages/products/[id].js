@@ -64,7 +64,6 @@ export default function Products({
   var id1 = 0;
   var [maxHeight, setMaxHeight] = useState(0);
 
-
   useEffect(() => {
     const buttonElement = document.getElementById("button");
     const priceContent = document.getElementById("priceContent");
@@ -275,11 +274,14 @@ export default function Products({
                           <button
                             className="p-0.5 border  border-green-800 rounded-full"
                             onClick={() => {
-                              setCount((prevCounts) => ({
-                                ...prevCounts,
-                                [formattedProduct.id]:
-                                  (count[formattedProduct.id] || 1) + 1,
-                              }));
+                              formattedProduct.qty >
+                                (count[formattedProduct.id] || 0)
+                                ? setCount((prevCounts) => ({
+                                    ...prevCounts,
+                                    [formattedProduct.id]:
+                                      (count[formattedProduct.id] || 1) + 1,
+                                  }))
+                                : console.log("Out of stock");
                             }}
                           >
                             <PlusSmIcon className="h-5 w-5 text-black" />
