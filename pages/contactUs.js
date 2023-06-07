@@ -67,6 +67,23 @@ export default function ContactDetails() {
                     +91 8122779620
                   </a>
                 </div>
+                <div className="my-6">
+                  <p className="font-semibold">Company Location</p>
+                  <a
+                    href="https://wa.me/+918122779620"
+                    className="text-gray-500 text-sm"
+                  >
+                    No.19e/2, NarumugaiHerbals,
+                    <br />
+                    Gramachavadi street,
+                    <br />
+                    Maniraja Aravamill,
+                    <br />
+                    Kamayagoundanpatti, Theni dt.,
+                    <br />
+                    TamilNadu - 625521
+                  </a>
+                </div>
               </div>
             </div>
           </div>
