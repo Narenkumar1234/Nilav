@@ -2,7 +2,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRef, useEffect } from "react";
 
-
 export default function Navbar({ page, setIsLoading }) {
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const sliderRef = useRef(null);
@@ -89,6 +88,15 @@ export default function Navbar({ page, setIsLoading }) {
               className="text-gray-100 hover:text-subtheme hover:underline mb-2"
             >
               Cancellation & Refund
+            </Link>
+            <Link
+              onClick={() =>
+                page == "10" ? setIsLoading(false) : setIsLoading(true)
+              }
+              href="/shippingPolicy"
+              className="text-gray-100 hover:text-subtheme hover:underline mb-2"
+            >
+              Shipping Policy
             </Link>
             <Link
               onClick={() =>
