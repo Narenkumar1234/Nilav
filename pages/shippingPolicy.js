@@ -75,7 +75,7 @@ export default function ShippingPolicy() {
                 </h3>
                 <p>
                   For returns and exchanges of products, please contact us via
-                  email at{" "}
+                  email at
                   <a href="mailto:narumugaiherbals2023@gmail.com">
                     narumugaiherbals2023@gmail.com
                   </a>
