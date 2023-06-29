@@ -116,7 +116,15 @@ export default function Navbar({ page, setIsLoading }) {
             >
               Terms and Conditions
             </Link>
-
+            <Link
+              onClick={() =>
+                page == "9" ? setIsLoading(false) : setIsLoading(true)
+              }
+              href="/testimonials"
+              className="text-gray-100 hover:text-subtheme hover:underline mb-2"
+            >
+              Testimonials
+            </Link>
             <Link
               onClick={() =>
                 page == "8" ? setIsLoading(false) : setIsLoading(true)
