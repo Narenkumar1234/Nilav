@@ -8,11 +8,8 @@ export default function ContactDetails() {
   return (
     <>
       <Layout>
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative  bg-subtheme w-full mobile-view ">
+  
+          <div className="lg:relative  ">
             {isLoading ? <Loading /> : <div></div>}
             <Navbar page="8" setIsLoading={setIsLoading}></Navbar>
             <div className="flex h-screen z-0 relative bottom-16 items-center justify-center">
@@ -87,7 +84,6 @@ export default function ContactDetails() {
               </div>
             </div>
           </div>
-        </div>
       </Layout>
     </>
   );

@@ -9,11 +9,8 @@ export default function RefundPolicy(){
   return (
     <>
       <Layout>
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative  bg-subtheme w-full mobile-view ">
+
+          <div className="lg:relative ">
             {isLoading ? <Loading /> : <div></div>}
             <div className="bg-gray-100 h-full mobile-view  text-gray-800">
               <Navbar page="6" setIsLoading={setIsLoading}></Navbar>
@@ -68,7 +65,6 @@ export default function RefundPolicy(){
               </div>
             </div>
           </div>
-        </div>
       </Layout>
     </>
   );

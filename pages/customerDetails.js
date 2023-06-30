@@ -18,8 +18,7 @@ export default function Details({
   return (
     <>
       <Layout>
-        <div id="my-element" className="  lg:p-10 md:p-10">
-          <div className="lg:relative  bg-subtheme mobile-view ">
+          <div className="lg:relative  ">
             {isLoading ? <Loading /> : <div></div>}
             <Navbar page="3" setIsLoading={setIsLoading}></Navbar>
             <div className="bg-subtheme h-screen w-full mx-auto">
@@ -132,7 +131,6 @@ export default function Details({
               </div>
             </div>
           </div>
-        </div>
       </Layout>
     </>
   );

@@ -270,11 +270,6 @@ export default function Payment({
   return (
     <>
       <Layout>
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative  bg-subtheme w-full mobile-view ">
             {isLoading ? <Loading /> : <div></div>}
 
             <div className="overflow-hidden">
@@ -379,8 +374,7 @@ export default function Payment({
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
       </Layout>
     </>
   );

@@ -175,11 +175,7 @@ export default function Products({
 
         {/* top content with nav bar  */}
 
-        <div
-          id="my-element"
-          className="lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="bg-subtheme w-full mobile-view ">
+ 
             <div id="navContent">
               <Navbar page="5" setIsLoading={setIsLoading} />
             </div>
@@ -392,8 +388,6 @@ export default function Products({
                 <div></div>
               )}
             </div>
-          </div>
-        </div>
       </Layout>
     </>
   );

@@ -58,8 +58,6 @@ export default function Home({ formattedProducts }) {
     <>
     <Layout>
       {isLoading ? <Loading /> : <div></div>}
-      <div id="my-element" className="lg:h-screen md:h-screen lg:p-10 md:p-10">
-        <div className="bg-subtheme w-full mobile-view ">
           <Navbar page="1" setIsLoading={setIsLoading}></Navbar>
           <h1 className="font-bold items-center justify-center flex text-lg pt-10">
             Our Products!
@@ -105,8 +103,7 @@ export default function Home({ formattedProducts }) {
               ))}
             </div>
           </div>
-        </div>
-      </div>
+
     </Layout>
     </>
   );

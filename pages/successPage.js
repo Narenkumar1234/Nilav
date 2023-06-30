@@ -10,11 +10,8 @@ export default function SuccessPage({ paymentId1 }) {
     <>
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative  bg-subtheme w-full  mobile-view ">
+        
+          <div className="lg:relative ">
             <div className="overflow-hidden mobile-view ">
               <Navbar page="5" setIsLoading={setIsLoading}></Navbar>
               <div className="bg-subtheme h-screen pt-20 ">
@@ -53,7 +50,6 @@ export default function SuccessPage({ paymentId1 }) {
               </div>
             </div>
           </div>
-        </div>
       </Layout>
     </>
   );

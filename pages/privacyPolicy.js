@@ -8,8 +8,7 @@ export default function PrivacyPolicy() {
   return (
     <>
     <Layout>
-    <div id="my-element" className=" lg:h-screen md:h-screen lg:p-10 md:p-10">
-        <div className="lg:relative  bg-subtheme w-full mobile-view ">
+        <div className="lg:relative ">
       
       {isLoading ? <Loading /> : <div></div>}
       <Navbar page="9" setIsLoading={setIsLoading}></Navbar>
@@ -107,7 +106,6 @@ export default function PrivacyPolicy() {
             information.
           </p>
         </div>
-      </div>
       </div>
       </div>
     </Layout>

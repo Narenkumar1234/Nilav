@@ -8,11 +8,8 @@ export default function TermsAndConditions() {
   return (
     <>
       <Layout>
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative  bg-subtheme w-full mobile-view ">
+
+          <div className="lg:relative ">
             {isLoading ? <Loading /> : <div></div>}
             <Navbar page="7" setIsLoading={setIsLoading}></Navbar>
             <div className="bg-gray-100 text-gray-800">
@@ -140,7 +137,6 @@ export default function TermsAndConditions() {
               </div>
             </div>
           </div>
-        </div>
       </Layout>
     </>
   );

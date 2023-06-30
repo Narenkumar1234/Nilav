@@ -79,11 +79,6 @@ export default function Cart({
   return (
     <>
       <Layout>
-        <div
-          id="my-element"
-          className=" lg:h-screen md:h-screen lg:p-10 md:p-10"
-        >
-          <div className="lg:relative lg:overflow-hidden bg-subtheme w-full mobile-view ">
             {isLoading ? <Loading /> : <div></div>}
 
             <div className="overflow-hidden mx-auto ">
@@ -298,8 +293,7 @@ export default function Cart({
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+       
       </Layout>
     </>
   );
