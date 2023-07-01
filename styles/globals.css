@@ -2,32 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-.home-page-image-div {
-  height: 30vh; /* 30% of the viewport height */
-  width: 100%;
+
+body{
+  background: #EDF2F7;
+  font-family: "Poppins", sans-serif;
+
 }
 
 .product-div {
   width: 100%;
 }
 
-.product-page-image-div {
-  height: 50vh; /* 30% of the viewport height */
-  width: 80%;
+.home-page-image-div {
+  height: 30vh; /* 30% of the viewport height */
+  width: 100%;
 }
 
-  .home-page-image-div {
-    height: 30vh; /* 30% of the viewport height */
-    width: 100%;
-  }
+.product-page-image-div {
+  width: 80%;
+  margin: auto;
+}
 
-  .product-page-image-div {
-    height: 30vh; /* 30% of the viewport height */
-    width: 100%;
-  }
-  .product-div {
-    width: 100%;
-  }
 
 .overflowHidden {
   overflow: hidden;
@@ -38,55 +33,21 @@
   display: inline;
   margin-right: 5px;
 }
-body {
-  font-family: "Poppins", sans-serif;
-}
 
-.mobile-image {
-  position: relative;
-  width: 375px; /* set the width of your mobile image */
-  margin: 0 auto; /* center the mobile image */
-}
-
-.content {
-  position: absolute;
-  top: 50px; /* adjust the top position based on your mobile image */
-  left: 20px; /* adjust the left position based on your mobile image */
-  right: 20px; /* adjust the right position based on your mobile image */
-  bottom: 20px; /* adjust the bottom position based on your mobile image */
-  /* Add other styles for your content */
-}
-
-.slider-panel {
-  animation: slide-in 0.3s ease-in-out forwards;
-}
-
-@keyframes slide-in {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
+@media (max-width: 767px) {
+  .product-page-image-div {
+    height: 30vh;
+    width: 100%;
   }
 }
 
-@media (min-width: 768px) {
-  .mobile-view {
-    max-width: 400px;
-    height: 90vh;
-    overflow-y: scroll;
-    margin: auto;
-    border-radius: 3%;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgba(210, 39, 39, 0.1);
-  }
+
+/* styles.css */
+
+ul.control-dots li.dot {
+  background-color: green !important;
 }
 
-.mobile-view::-webkit-scrollbar {
-  width: 0px;
-  background-color: transparent;
-}
-
-.mobile-view::-webkit-scrollbar-thumb {
-  background-color: transparent;
+ul.control-dots li.dot.selected {
+  background-color: darkgreen;
 }

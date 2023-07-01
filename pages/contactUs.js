@@ -9,10 +9,10 @@ export default function ContactDetails() {
     <>
       <Layout>
   
-          <div className="lg:relative  ">
+          <div className="lg:relative  z-0">
             {isLoading ? <Loading /> : <div></div>}
             <Navbar page="8" setIsLoading={setIsLoading}></Navbar>
-            <div className="flex h-screen z-0 relative bottom-16 items-center justify-center">
+            <div className="flex  z-0 relative mt-10 mb-10 items-center justify-center">
               <div className="bg-white rounded-lg lg:p-10 md:p-10 p-5">
                 <h1 className="text-center font-bold">Contact Us</h1>
 
@@ -67,7 +67,7 @@ export default function ContactDetails() {
                 <div className="my-6">
                   <p className="font-semibold">Company Location</p>
                   <a
-                    href="https://wa.me/+918122779620"
+                    href=""
                     className="text-gray-500 text-sm"
                   >
                     No.19e/2, NarumugaiHerbals,

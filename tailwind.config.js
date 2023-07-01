@@ -17,6 +17,7 @@ module.exports = {
         darktheme: "#000000",
         subtheme: "#EDF2F7",
         button: "#3B8C3A",
+        footer: "#000000",
       },
       animation: {
         "spin-slow": "spin 1.5s linear infinite",

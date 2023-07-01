@@ -152,7 +152,6 @@ export default function Payment({
 
     // Make API call to the serverless API
     const { data } = await axios.post("/api/razorpay", { totalPayableAmount });
-    console.log(data);
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       name: "Narumugai Herbals",
@@ -270,16 +269,19 @@ export default function Payment({
   return (
     <>
       <Layout>
-            {isLoading ? <Loading /> : <div></div>}
+        {isLoading ? <Loading /> : <div></div>}
 
-            <div className="overflow-hidden">
-              <Navbar page="4" setIsLoading={setIsLoading}></Navbar>
+        <div className="overflow-hidden">
+          <Navbar page="4" setIsLoading={setIsLoading} />
 
-              <div className="bg-subtheme h-screen w-full ">
+          <div className="lg:flex lg:justify-center lg:mt-10 lg:py-10">
+            <div className="bg-subtheme lg:bg-white lg:max-w-md lg:w-1/2 lg:py-4 rounded-xl">
+              <div className=" w-full">
                 <h1 className="font-bold items-center justify-center flex text-lg py-10">
                   Payment!
                 </h1>
-                <div className="flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+
+                <div className="p-3 flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5 text-gray-700 font-normal">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -299,39 +301,42 @@ export default function Payment({
                   </span>
                 </div>
 
-                <div className="bg-gray-300 rounded-sm p-3 m-5  bg-opacity-50">
-                  <div className="grid grid-rows-5 space-y-2">
-                    <div className=" row-span-1">
+                <div className="bg-gray-300 rounded-sm p-3 m-5 bg-opacity-50">
+                  <div className="grid grid-rows-3 space-y-2">
+                    <div className="row-span-1">
                       <div className="flex justify-between items-center">
-                        <h1>Total</h1>
-                        <h1 className="text-gray-900">₹{total}</h1>
+                        <h1 className="text-lg font-medium">Total</h1>
+                        <h1 className="text-gray-900 text-lg">₹{total}</h1>
                       </div>
                     </div>
-                    {/* {<div className=" row-span-1 text-gray-950 flex justify-between items-center">
-                <h1>Discount</h1>
-                <h1 className="text-gray-500">-10%</h1>
-              </div>} */}
-                    <div className=" row-span-1 flex justify-between items-center">
-                      <h1>Shipping Charges</h1>
-                      <h1 className="text-gray-500">+₹{shipment}</h1>
+                    {/* <div className="row-span-1 text-gray-950 flex justify-between items-center">
+                    <h1>Discount</h1>
+                    <h1 className="text-gray-500">-10%</h1>
+                  </div> */}
+                    <div className="row-span-1 flex justify-between items-center">
+                      <h1 className="text-lg">Shipping Charges</h1>
+                      <h1 className="text-gray-500 text-lg">+₹{shipment}</h1>
                     </div>
-                    {/* <div className=" row-span-1 flex justify-between items-center">
-                <h1>Coupon Discount</h1>
-                <h1 className="text-gray-500 ">
-                  {couponDiscout ? "-₹" + couponDiscout : "-"}
-                </h1>
-              </div> */}
-                    <div className=" row-span-1 text-lg flex justify-between items-center">
-                      <h1>Total Payable Amount</h1>
-                      <h1 className="text-gray-900 ">₹{totalPayableAmount}</h1>
+                    {/* <div className="row-span-1 flex justify-between items-center">
+                    <h1>Coupon Discount</h1>
+                    <h1 className="text-gray-500">
+                      {couponDiscout ? "-₹" + couponDiscout : "-"}
+                    </h1>
+                  </div> */}
+                    <div className="row-span-1 flex justify-between items-center">
+                      <h1 className="text-lg">Total Payable Amount</h1>
+                      <h1 className="text-gray-900 text-lg">
+                        ₹{totalPayableAmount}
+                      </h1>
                     </div>
                   </div>
                 </div>
-                <div className="justify-center flex items-center  mt-10">
+
+                <div className="justify-center flex items-center mt-10">
                   {totalPayableAmount ? (
                     <button
                       onClick={makePayment}
-                      className="z-10 text-white bg-theme py-3 px-5 rounded-lg"
+                      className="z-10 text-white bg-theme py-3 px-5 rounded-lg hover:bg-opacity-80 transition-all"
                     >
                       Pay with BHIM/UPI ID
                       <svg
@@ -352,7 +357,7 @@ export default function Payment({
                   ) : (
                     <Link
                       href="/"
-                      className="bg-theme py-1 px-2 text-white rounded-lg"
+                      className="bg-theme py-1 px-2 text-white rounded-lg hover:bg-opacity-80 transition-all"
                     >
                       Return Home
                       <svg
@@ -374,7 +379,8 @@ export default function Payment({
                 </div>
               </div>
             </div>
-
+          </div>
+        </div>
       </Layout>
     </>
   );
