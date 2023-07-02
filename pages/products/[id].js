@@ -57,6 +57,7 @@ export default function Products({
   setPrice,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const [qty, setQty] = useState("");
   const [addOrGo, setAddOrGo] = useState(true);
   const router = useRouter();
@@ -94,7 +95,7 @@ export default function Products({
 
   function handleAddToCart() {
     setAddOrGo(false);
-    !addOrGo && setIsLoading(true);
+    !addOrGo && setIsNavOpen(true)
     setCartItems((prevItems) => {
       //set the product quantity per gram
 
@@ -126,8 +127,10 @@ export default function Products({
     localStorage.setItem("price", JSON.stringify(price));
     localStorage.setItem("count", JSON.stringify(count));
   }
+
   function handleBuyNow() {
-    setIsLoading(true);
+    setIsNavOpen(true);
+    console.log(isNavOpen);
     setCartItems((prevItems) => {
       //set the product quantity per gram
       const updatedCartItems = {
@@ -174,7 +177,13 @@ export default function Products({
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
         <div id="navContent">
-          <Navbar page="5" setIsLoading={setIsLoading} />
+          <Navbar
+            key={isNavOpen}
+            page="5"
+            setIsLoading={setIsLoading}
+            isNavOpen={isNavOpen}
+            setIsNavOpen={setIsNavOpen}
+          />
         </div>
 
         <div className="bg-subtheme ">
@@ -194,7 +203,7 @@ export default function Products({
                 </div>
                 <div className="px-20">
                   <div
-                    id="priceContent"
+                    id="priceContentDesktop"
                     className="px-10 lg:px-4 lg:flex  items-center font-bold justify-between hidden"
                   >
                     <h1>{formattedProduct.name}</h1>
@@ -206,7 +215,7 @@ export default function Products({
                     </h1>
                   </div>
                   <div
-                    id="quantityContent"
+                    id="quantityContentDesktop"
                     className="px-4 lg:flex items-center justify-between py-5 hidden "
                   >
                     <div className="flex items-center align-middle ">
@@ -226,23 +235,19 @@ export default function Products({
                         }}
                         className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5 "
                       >
-                        {productOnePriceList.map(
-                          ({ key = id2++ }) => (
-                            (
-                              <option
-                                key={key}
-                                className="text-black"
-                                value={productOnePriceList[key].price}
-                                data-qty-per-gram={
-                                  productOnePriceList[key].qtyPerGram
-                                }
-                              >
-                                {productOnePriceList[key].qtyPerGram}
-                                {id == 1 ? "ml" : "g"}
-                              </option>
-                            )
-                          )
-                        )}
+                        {productOnePriceList.map(({ key = id2++ }) => (
+                          <option
+                            key={key}
+                            className="text-black"
+                            value={productOnePriceList[key].price}
+                            data-qty-per-gram={
+                              productOnePriceList[key].qtyPerGram
+                            }
+                          >
+                            {productOnePriceList[key].qtyPerGram}
+                            {id == 1 ? "ml" : "g"}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     {formattedProduct.qty === 0 ? (
@@ -292,7 +297,7 @@ export default function Products({
             </container>
             <container className="w-5/12">
               <div
-                id="priceContent1"
+                id="priceContent"
                 className="px-10 flex items-center font-bold justify-between lg:hidden"
               >
                 <h1>{formattedProduct.name}</h1>
@@ -456,27 +461,24 @@ export default function Products({
               </div>
               {count[formattedProduct.id] || 1 ? (
                 <div
-                  id="button"
                   className={` ${
                     formattedProduct.qty ? "visible" : "invisible"
                   }   bg-subtheme py-4  hidden lg:block px-4`}
                 >
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
                     <div className="flex justify-start">
-                      <Link
-                        href={"/myCart"}
+                      <button
                         onClick={handleBuyNow}
                         className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
                       >
                         Buy Now
-                      </Link>
-                      <Link
-                        href={addOrGo ? `/products/${id}` : "/myCart"}
+                      </button>
+                      <button
                         onClick={handleAddToCart}
                         className="bg-button text-white font-semibold px-4 py-2 rounded"
                       >
                         {addOrGo ? "Add to Cart" : "Go to Cart !"}
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -495,20 +497,18 @@ export default function Products({
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
                 <div className="flex justify-end">
-                  <Link
-                    href={"/myCart"}
+                  <div
                     onClick={handleBuyNow}
                     className="bg-black text-white font-semibold px-4 py-2 mr-4 rounded"
                   >
                     Buy Now
-                  </Link>
-                  <Link
-                    href={addOrGo ? `/products/${id}` : "/myCart"}
+                  </div>
+                  <div
                     onClick={handleAddToCart}
                     className="bg-button text-white font-semibold px-4 py-2 rounded"
                   >
                     {addOrGo ? "Add to Cart" : "Go to Cart !"}
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>

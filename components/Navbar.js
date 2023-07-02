@@ -1,54 +1,72 @@
+import { useState } from "react";
 import Link from "next/link";
+import { useRef, useEffect } from "react";
+import Cart from "@/pages/myCart";
 
-export default function Navbar({ page, setIsLoading }) {
-  function handleClick() {
-    
-    setIsLoading(true);
+export default function Navbar({ page, setIsLoading, isNavOpen = false, setIsNavOpen = setIsLoading }) {
+
+  const [isSliderOpen, setIsSliderOpen] = useState(isNavOpen);
+  const sliderRef = useRef(null);
+
+  function toggleSlider() {
+    setIsSliderOpen(!isSliderOpen);
   }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  function handleOutsideClick(event) {
+    if (sliderRef.current && !sliderRef.current.contains(event.target)) {
+      setIsSliderOpen(false);
+    setIsNavOpen(false);
+
+    }
+  }
+
+  const [cartItems, setCartItems] = useState({});
+  const [count, setCount] = useState({});
+  const [price, setPrice] = useState({});
+
   return (
-    <>
-      <div className="z-50">
-        <div
-          className={
-            "sticky bg-theme shadow-xl  border-bg border-green-600 text-white px-2 flex justify-between items-center "
-          }
-        >
-          <Link
-            href="/"
-            onClick={ (page!=1) && handleClick }
-            className="font-bold flex items-center"
-          >
-            <div className="flex items-center  justify-center">
-              <img
-                src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
-                alt="Watermark"
-                className="border-white w-10 m-3 rounded-md"
-                width={"50%"}
-              />
-            </div>
-            <h1>Narumugai</h1>
-          </Link>
-          {page != "2" ? (
-            <Link href="/myCart" onClick={handleClick}>
-              <div className="flex items-center justify-center w-12">
-                <img src="https://i.postimg.cc/y6vpbZzB/image.png" alt="" />
-              </div>
-            </Link>
-          ) : (
-            <Link href="/" onClick={handleClick}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
-                <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
-              </svg>
-            </Link>
-          )}
+    <div className="sticky bg-theme shadow-xl z-20 border-bg border-green-600 text-white px-2 flex justify-between items-center">
+      <div className="font-bold flex items-center">
+        <div className="flex items-center justify-center">
+          <img
+            src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
+            alt="Watermark"
+            className="border-white w-10 m-3 rounded-md"
+            width={"50%"}
+          />
         </div>
+        <Link href="/">Narumugai</Link>
       </div>
-    </>
+      <div className="flex items-center justify-center w-12">
+        <button
+          onClick={toggleSlider}
+          className="text-white focus:outline-none"
+        >
+          <div className="flex items-center justify-center w-12">
+            <img src="https://i.postimg.cc/y6vpbZzB/image.png" alt="" />
+          </div>
+        </button>
+      </div>
+      {isSliderOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-30">
+          <div
+            ref={sliderRef}
+            className=" slider-panel flex flex-col h-screen bg-subtheme w-10/12 lg:w-4/12 lg:px-8 lg:py-16 space-y-10 absolute top-0 right-0 "
+          >
+            <div className="text-black">
+              <Cart count={count} setCount={setCount} setPrice={setPrice} />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
+

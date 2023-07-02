@@ -42,8 +42,6 @@ export default function Payment({
   name,
   formattedProducts,
   isTN,
-  setIsTN,
-  paymentId1,
   setPaymentId1,
 }) {
   const [total, setTotal] = useState(0);
@@ -60,6 +58,7 @@ export default function Payment({
     const cartItemsStored = JSON.parse(localStorage.getItem("cartItems"));
     const countStored = JSON.parse(localStorage.getItem("count"));
     const priceStored = JSON.parse(localStorage.getItem("price"));
+    console.log(countStored?.[1]);
 
     setCartItemsStored(cartItemsStored);
     setCountStored(countStored);
@@ -195,7 +194,7 @@ export default function Payment({
       var stockTwo =
         formattedProducts[1].qty - (countStored?.[2] ? countStored[2] : 0);
       const { data } = await axios
-        .post("/api/qty", {
+        .post("/api/products", {
           stockOne,
           stockTwo,
         })

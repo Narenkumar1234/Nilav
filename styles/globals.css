@@ -51,3 +51,17 @@ ul.control-dots li.dot {
 ul.control-dots li.dot.selected {
   background-color: darkgreen;
 }
+
+
+.slider-panel {
+  animation: slide-in 0.3s ease-in-out forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -1,55 +1,68 @@
-import Navbar from "../components/Navbar";
 import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import { PlusSmIcon, MinusSmIcon } from "@heroicons/react/solid";
 import Layout from "./layout/layout";
+import axios from "axios";
 
-export async function getServerSideProps() {
-  try {
-    const prisma = new PrismaClient();
+// export async function getServerSideProps() {
+//   try {
+//     const prisma = new PrismaClient();
 
-    const products = await prisma.Products.findMany({
-      orderBy: {
-        id: "asc",
-      },
-    });
-    await prisma.$disconnect();
+//     const products = await prisma.Products.findMany({
+//       orderBy: {
+//         id: "asc",
+//       },
+//     });
+//     await prisma.$disconnect();
 
-    const formattedProducts = products.map((product) => ({
-      ...product,
-      createdAt: product.createdAt.toISOString(),
-    }));
+//     const formattedProducts = products.map((product) => ({
+//       ...product,
+//       createdAt: product.createdAt.toISOString(),
+//     }));
 
-    return {
-      props: {
-        formattedProducts,
-      },
-    };
-  } catch (error) {
-    console.log(error);
-  }
-  return {
-    props: {
-      formattedProducts: [],
-    },
-  };
-}
+//     return {
+//       props: {
+//         formattedProducts,
+//       },
+//     };
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return {
+//     props: {
+//       formattedProducts: [],
+//     },
+//   };
+// }
 
-export default function Cart({
-  price,
-  setPrice,
-  count,
-  setCount,
-  cartItems,
-  formattedProducts,
-}) {
+export default function Cart({ price, setPrice, count, setCount, cartItems }) {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [priceStored, setPriceStored] = useState({});
   const [countStored, setCountStored] = useState({});
   const [cartItemsStored, setCartItemsStored] = useState({});
+  const [formattedProducts, setFormattedProducts] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/products");
+        const formattedProduct = response.data;
+        console.log(formattedProduct);
+        setFormattedProducts(formattedProduct);
+
+        // Do something with the fetched data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+
+    setCount(JSON.parse(localStorage.getItem("count")));
+    setPrice(JSON.parse(localStorage.getItem("price")));
+  }, []);
+
   useEffect(() => {
     //fetch cartItems from local storage
     try {
@@ -70,32 +83,25 @@ export default function Cart({
     } catch (error) {
       console.log(error);
     }
-  }, [cartItems, count, price]);
+  }, [cartItems, count, price, formattedProducts]);
 
-  useEffect(() => {
-    setCount(JSON.parse(localStorage.getItem("count")));
-    setPrice(JSON.parse(localStorage.getItem("price")));
-  }, []);
   return (
     <>
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
-
         <div className="overflow-hidden mx-auto ">
-          <Navbar page="2" setIsLoading={setIsLoading}></Navbar>
+          {/* <Navbar page="2" setIsLoading={setIsLoading}></Navbar> */}
           <div className="bg-subtheme h-screen w-full ">
             <h1 className="font-bold items-center justify-center flex text-lg pt-10 ">
               My Cart!
             </h1>
-            <div className="lg:flex lg:justify-center lg:mt-10">
-              <div className="bg-subtheme  lg:bg-white lg:max-w-md lg:w-1/2 lg:py-10 rounded-xl">
-             
+
             {filteredProducts.length > 0 ? (
               <div className="flex  items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 20 20" 
                     fill="currentColor"
                     className="w-5 h-5"
                   >
@@ -112,7 +118,7 @@ export default function Cart({
               </div>
             ) : (
               <div>
-                <div className="flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+                <div className="flex items-center lg:p-0 text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +140,6 @@ export default function Cart({
                 <div>
                   <div className="flex justify-center">
                     <Link
-                      onClick={() => setIsLoading(true)}
                       href="/"
                       className="bg-button text-white font-semibold px-4 py-2 mr-4 rounded"
                     >
@@ -266,16 +271,9 @@ export default function Cart({
                 )
               )}
               {filteredProducts.length ? (
-                <div className="absolute bottom-0 left-0 w-full py-4 lg:relative lg:mt-10">
+                <div className="w-full py-4 lg:relative lg:mt-10">
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
                     <div className="flex justify-center">
-                      <Link
-                        onClick={() => setIsLoading(true)}
-                        href="/"
-                        className="bg-theme text-sm text-white font-semibold px-4 py-2 mr-4 rounded"
-                      >
-                        Continue Shopping
-                      </Link>
                       <Link
                         onClick={() => setIsLoading(true)}
                         href="/customerDetails"
@@ -292,8 +290,7 @@ export default function Cart({
             </div>
           </div>
         </div>
-        </div>
-        </div>
+        \
       </Layout>
     </>
   );

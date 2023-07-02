@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
 import Layout from "./layout/layout";
-import Testimonials from "./testimonials"
+import Testimonials from "./testimonials";
 export async function getServerSideProps() {
   try {
     const prisma = new PrismaClient();
@@ -51,15 +51,14 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ formattedProducts }) {
+export default function Home({ formattedProducts }) {  
   const [isLoading, setIsLoading] = useState(false);
-
 
   return (
     <>
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
-        <Navbar page="1" setIsLoading={setIsLoading}></Navbar>
+        <Navbar page="1" setIsLoading={setIsLoading}></Navbar> 
         <h1 className="font-bold items-center justify-center flex text-lg pt-10">
           Our Products!
         </h1>
@@ -79,8 +78,8 @@ export default function Home({ formattedProducts }) {
                         />
                       </div>
                     </div>
-                    <div className="p-3 mx-auto text-justify">
-                      <h1 className="text-center font-semibold">
+                    <div className="p-3 mx-auto text-justify w-11/12 lg:h-44">
+                      <h1 className="text-center font-semibold mb-2">
                         {formattedProduct.name}
                       </h1>
                       <p className="text-gray-400 text-sm">
@@ -102,7 +101,7 @@ export default function Home({ formattedProducts }) {
             </div>
           ))}
         </div>
-          <Testimonials/>
+        <Testimonials />
       </Layout>
     </>
   );
