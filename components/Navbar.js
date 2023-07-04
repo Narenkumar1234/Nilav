@@ -3,8 +3,12 @@ import Link from "next/link";
 import { useRef, useEffect } from "react";
 import Cart from "@/pages/myCart";
 
-export default function Navbar({ page, setIsLoading, isNavOpen = false, setIsNavOpen = setIsLoading }) {
-
+export default function Navbar({
+  page,
+  setIsLoading,
+  isNavOpen = false,
+  setIsNavOpen = setIsLoading,
+}) {
   const [isSliderOpen, setIsSliderOpen] = useState(isNavOpen);
   const sliderRef = useRef(null);
 
@@ -22,12 +26,18 @@ export default function Navbar({ page, setIsLoading, isNavOpen = false, setIsNav
   function handleOutsideClick(event) {
     if (sliderRef.current && !sliderRef.current.contains(event.target)) {
       setIsSliderOpen(false);
-    setIsNavOpen(false);
-
+      setIsNavOpen(false);
     }
+
   }
 
-  const [cartItems, setCartItems] = useState({});
+    function handleShopNowClick(load) {
+        setIsSliderOpen(false);
+        setIsNavOpen(false);
+        setIsLoading(load);
+    }
+
+  const [cartGrams, setcartGrams] = useState({});
   const [count, setCount] = useState({});
   const [price, setPrice] = useState({});
 
@@ -61,7 +71,7 @@ export default function Navbar({ page, setIsLoading, isNavOpen = false, setIsNav
             className=" slider-panel flex flex-col h-screen bg-subtheme w-10/12 lg:w-4/12 lg:px-8 lg:py-16 space-y-10 absolute top-0 right-0 "
           >
             <div className="text-black">
-              <Cart count={count} setCount={setCount} setPrice={setPrice} />
+              <Cart count={count} setCount={setCount} setPrice={setPrice} handleOutsideClick={handleShopNowClick}/>
             </div>
           </div>
         </div>
@@ -69,4 +79,3 @@ export default function Navbar({ page, setIsLoading, isNavOpen = false, setIsNav
     </div>
   );
 }
-

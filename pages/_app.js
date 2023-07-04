@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { useState } from "react";
 
 export default function App({ Component, pageProps }) {
-  const [cartItems, setCartItems] = useState({});
+  const [cartGrams, setcartGrams] = useState({});
   const [count, setCount] = useState({});
   const [price, setPrice] = useState({});
   const [address, setAddress] = useState("");
@@ -26,8 +26,8 @@ export default function App({ Component, pageProps }) {
       setTheme={setTheme}
       count={count}
       setCount={setCount}
-      cartItems={cartItems}
-      setCartItems={setCartItems}
+      cartGrams={cartGrams}
+      setcartGrams={setcartGrams}
       price={price}
       setPrice={setPrice}
       paymentId1={paymentId}

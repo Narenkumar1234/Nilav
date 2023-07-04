@@ -51,34 +51,34 @@ export default function Payment({
   const [totalPayableAmount, setTotalPayableAmount] = useState(0);
   const [countStored, setCountStored] = useState({});
   const [priceStored, setPriceStored] = useState({});
-  const [cartItemsStored, setCartItemsStored] = useState({});
-  const [filterCartItems, setFilterCartItems] = useState({});
+  const [cartGramsStored, setcartGramsStored] = useState({});
+  const [filtercartGrams, setFiltercartGrams] = useState({});
   var paymentId;
   useEffect(() => {
-    const cartItemsStored = JSON.parse(localStorage.getItem("cartItems"));
+    const cartGramsStored = JSON.parse(localStorage.getItem("cartGrams"));
     const countStored = JSON.parse(localStorage.getItem("count"));
     const priceStored = JSON.parse(localStorage.getItem("price"));
     console.log(countStored?.[1]);
 
-    setCartItemsStored(cartItemsStored);
+    setcartGramsStored(cartGramsStored);
     setCountStored(countStored);
     setPriceStored(priceStored);
 
     const countKey = Object.keys(countStored).filter(
       (key) => countStored[key] > 0
     );
-    const filterCartItems = formattedProducts.filter((cart) =>
+    const filtercartGrams = formattedProducts.filter((cart) =>
       countKey.includes(String(cart.id))
     );
-    setFilterCartItems(filterCartItems);
+    setFiltercartGrams(filtercartGrams);
   }, []);
 
   useEffect(() => {
-    if (filterCartItems && priceStored && countStored) {
+    if (filtercartGrams && priceStored && countStored) {
       let total = 0;
 
-      Object.keys(filterCartItems).forEach((key) => {
-        const cartItem = filterCartItems[key];
+      Object.keys(filtercartGrams).forEach((key) => {
+        const cartItem = filtercartGrams[key];
         const count = countStored[cartItem.id];
         const price = priceStored[cartItem.id];
         const itemTotal = price * count;
@@ -98,7 +98,7 @@ export default function Payment({
       setCouponDiscount(couponDiscount);
       setTotalPayableAmount(totalPayableAmount);
     }
-  }, [filterCartItems, priceStored, countStored, isTN]);
+  }, [filtercartGrams, priceStored, countStored, isTN]);
 
   const { push } = useRouter();
 
@@ -108,14 +108,14 @@ export default function Payment({
     `${
       formattedProducts[0].qty > countStored?.[1]
         ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0} -  ${
-            cartItemsStored?.[1] || 0
+            cartGramsStored?.[1] || 0
           }ml\n`
         : ``
     }` +
     `${
       formattedProducts[1].qty > countStored?.[2]
         ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n -  ${
-            cartItemsStored?.[1] || 0
+            cartGramsStored?.[1] || 0
           }g\n`
         : ``
     } ` +

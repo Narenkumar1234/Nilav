@@ -51,8 +51,8 @@ export default function Products({
   count,
   setCount,
   productOnePrice: productOnePriceList,
-  setCartItems,
-  cartItems,
+  setcartGrams,
+  cartGrams,
   price,
   setPrice,
 }) {
@@ -93,51 +93,87 @@ export default function Products({
       .filter((val) => val.length > 0);
   }
 
-  function handleAddToCart() {
-    setAddOrGo(false);
-    !addOrGo && setIsNavOpen(true)
-    setCartItems((prevItems) => {
-      //set the product quantity per gram
+  // function handleAddToCart() {
+  //   setAddOrGo(false);
+  //   !addOrGo && setIsNavOpen(true);
+  //   setcartGrams((prevItems) => {
+  //     //set the product quantity per gram
 
-      return {
-        ...prevItems,
-        [formattedProduct.id]: qty ? qty : productOnePriceList[0].qtyPerGram,
+  //     return {
+  //       ...prevItems,
+  //       [formattedProduct.id]: qty ? qty : productOnePriceList[0].qtyPerGram,
+  //     };
+  //   });
+
+  //   (count[formattedProduct.id] === undefined ||
+  //     count[formattedProduct.id] == 0) &&
+  //     setCount((prevCount) => {
+  //       return {
+  //         ...prevCount,
+  //         [formattedProduct.id]: 1, // Set the count for the specific product ID
+  //       };
+  //     });
+
+  //   (price[formattedProduct.id] === undefined ||
+  //     price[formattedProduct.id] == 0) &&
+  //     setPrice((prevCount) => {
+  //       return {
+  //         ...prevCount,
+  //         [formattedProduct.id]: productOnePriceList[0].price, // Set the count for the specific product ID
+  //       };
+  //     });
+
+  //   localStorage.setItem("cartGrams", JSON.stringify(cartGrams));
+  //   localStorage.setItem("price", JSON.stringify(price));
+  //   localStorage.setItem("count", JSON.stringify(count));
+  // }
+
+  function handleAddToCart() {
+    setIsNavOpen(true);
+    setcartGrams((prevItems) => {
+      const updatedcartGrams = {
+        ...prevItems, // Copy the previous cartGrams object
+        [formattedProduct.id]: qty ? qty : productOnePriceList[0].qtyPerGram, // Add or update the value for the specific product ID
       };
+      localStorage.setItem("cartGrams", JSON.stringify(updatedcartGrams));
+      return updatedcartGrams; // Return the updated value
     });
 
-    (count[formattedProduct.id] === undefined ||
-      count[formattedProduct.id] == 0) &&
-      setCount((prevCount) => {
-        return {
-          ...prevCount,
-          [formattedProduct.id]: 1, // Set the count for the specific product ID
-        };
-      });
+    const existingCount = JSON.parse(localStorage.getItem("count")) || {};
 
-    (price[formattedProduct.id] === undefined ||
-      price[formattedProduct.id] == 0) &&
-      setPrice((prevCount) => {
-        return {
-          ...prevCount,
-          [formattedProduct.id]: productOnePriceList[0].price, // Set the count for the specific product ID
-        };
-      });
+    setCount((prevCount) => {
+      const updatedCount = {
+        ...prevCount, // Copy the previous count object
+        [formattedProduct.id]: prevCount[formattedProduct.id] || 1, // Increment the count for the specific product ID
+      };
+      if (existingCount?.[formattedProduct.id == 1 ? 2 : 1] === 0) {
+        delete updatedCount[formattedProduct.id == 1 ? 2 : 1]; // Delete the count for key 2 if its value is 0
+      }
+      localStorage.setItem("count", JSON.stringify(updatedCount));
+      return updatedCount;
+    });
 
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    localStorage.setItem("price", JSON.stringify(price));
-    localStorage.setItem("count", JSON.stringify(count));
+    setPrice((prevPrice) => {
+      const updatedPrice = {
+        ...prevPrice, // Copy the previous price object
+        [formattedProduct.id]:
+          prevPrice[formattedProduct.id] || productOnePriceList[0].price, // Add the price for the specific product ID
+      };
+      localStorage.setItem("price", JSON.stringify(updatedPrice));
+      return updatedPrice;
+    });
   }
 
   function handleBuyNow() {
     setIsNavOpen(true);
     console.log(isNavOpen);
-    setCartItems((prevItems) => {
+    setcartGrams((prevItems) => {
       //set the product quantity per gram
-      const updatedCartItems = {
+      const updatedcartGrams = {
         [formattedProduct.id]: qty ? qty : productOnePriceList[0].qtyPerGram,
       };
-      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
-      return updatedCartItems; // return the updated value
+      localStorage.setItem("cartGrams", JSON.stringify(updatedcartGrams));
+      return updatedcartGrams; // return the updated value
     });
 
     count[formattedProduct.id] === undefined || count[formattedProduct.id] == 0
