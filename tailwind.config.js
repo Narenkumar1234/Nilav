@@ -15,7 +15,7 @@ module.exports = {
       colors: {
         theme: "#000000",
         darktheme: "#000000",
-        subtheme: "#EDF2F7",
+        subtheme: "#F2FAED",
         button: "#3B8C3A",
         footer: "#000000",
       },
