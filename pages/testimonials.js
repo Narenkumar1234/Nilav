@@ -21,6 +21,7 @@ export default function Testimonials({}) {
         </h1>
         <div className="lg:bg-subtheme lg:mx-52 lg:rounded-3xl">
           <Carousel
+            showThumbs={false}
             showStatus={false}
             infiniteLoop
             autoPlay
