@@ -53,25 +53,12 @@ export async function getServerSideProps() {
 
 export default function Home({ formattedProducts }) {  
   const [isLoading, setIsLoading] = useState(false);
-useEffect(() => {
-  if ("caches" in window) {
-    caches
-      .keys()
-      .then(function (cacheNames) {
-        return Promise.all(
-          cacheNames.map(function (cacheName) {
-            return caches.delete(cacheName);
-          })
-        );
-      })
-      .then(function () {
-        console.log("All caches deleted successfully.");
-      })
-      .catch(function (error) {
-        console.error("Error deleting caches:", error);
-      });
-  }
-}, []);
+ useEffect(() => {
+   if (localStorage.getItem("isPageLoaded") === null) {
+     localStorage.clear();
+     localStorage.setItem("isPageLoaded", "true");
+   }
+ }, []);
 
   return (
     <>
