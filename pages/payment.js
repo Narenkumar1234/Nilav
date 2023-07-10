@@ -37,9 +37,7 @@ export async function getServerSideProps() {
   }
 }
 export default function Payment({
-  phoneNumber,
-  address,
-  name,
+
   formattedProducts,
   isTN,
   setPaymentId1,
@@ -58,7 +56,7 @@ export default function Payment({
     const cartGramsStored = JSON.parse(localStorage.getItem("cartGrams"));
     const countStored = JSON.parse(localStorage.getItem("count"));
     const priceStored = JSON.parse(localStorage.getItem("price"));
-    console.log(countStored?.[1]);
+    // console.log(countStored?.[1]);
 
     setcartGramsStored(cartGramsStored);
     setCountStored(countStored);
@@ -102,26 +100,6 @@ export default function Payment({
 
   const { push } = useRouter();
 
-  var message =
-    `Hey! New Order from ${name}` +
-    `\nThe Order List : \n ` +
-    `${
-      formattedProducts[0].qty > countStored?.[1]
-        ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0} -  ${
-            cartGramsStored?.[1] || 0
-          }ml\n`
-        : ``
-    }` +
-    `${
-      formattedProducts[1].qty > countStored?.[2]
-        ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n -  ${
-            cartGramsStored?.[1] || 0
-          }g\n`
-        : ``
-    } ` +
-    "\nThe Address You have to deliver is \n" +
-    address +
-    ` \n \nPayment Done : ₹ ${totalPayableAmount} \n \n Customer Mobile Number ${phoneNumber}`;
 
   // Razor Pay Initialize
   const initializeRazorpay = () => {
@@ -168,8 +146,8 @@ export default function Payment({
         ) {
           paymentId = response.razorpay_payment_id;
           setPaymentId1(response.razorpay_payment_id);
-          console.log(paymentId);
-          sendOrderMessage();
+          // console.log(paymentId);
+          // sendOrderMessage();
           push("/successPage");
         } else {
           push("/paymentFailed");
@@ -186,82 +164,82 @@ export default function Payment({
     paymentObject.open();
   };
 
-  const sendOrderMessage = async () => {
-    try {
-      var stockOne =
-        formattedProducts[0].qty - (countStored?.[1] ? countStored[1] : 0);
+  // const sendOrderMessage = async () => {
+  //   try {
+  //     var stockOne =
+  //       formattedProducts[0].qty - (countStored?.[1] ? countStored[1] : 0);
 
-      var stockTwo =
-        formattedProducts[1].qty - (countStored?.[2] ? countStored[2] : 0);
-      const { data } = await axios
-        .post("/api/products", {
-          stockOne,
-          stockTwo,
-        })
-        .then(insertOrder());
+  //     var stockTwo =
+  //       formattedProducts[1].qty - (countStored?.[2] ? countStored[2] : 0);
+  //     const { data } = await axios
+  //       .post("/api/products", {
+  //         stockOne,
+  //         stockTwo,
+  //       })
+  //       .then(insertOrder());
 
-      const response = await fetch("/api/whatsapp1", {
-        method: "POST",
-        body: JSON.stringify({ message }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //     const response = await fetch("/api/whatsapp1", {
+  //       method: "POST",
+  //       body: JSON.stringify({ message }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-      } else {
-        console.error(response.statusText);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //     } else {
+  //       console.error(response.statusText);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const insertOrder = async () => {
-    try {
-      const orderData = {
-        name: name,
-        mobile: phoneNumber,
-        price: totalPayableAmount,
-        address: address,
-        paymentId: paymentId,
-        products:
-          `${
-            formattedProducts[0].qty > countStored?.[1]
-              ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0}\n`
-              : ``
-          }` +
-          `${
-            formattedProducts[1].qty > countStored?.[2]
-              ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n`
-              : ``
-          } `,
-      };
+  // const insertOrder = async () => {
+  //   try {
+  //     const orderData = {
+  //       name: name,
+  //       mobile: phoneNumber,
+  //       price: totalPayableAmount,
+  //       address: address,
+  //       paymentId: paymentId,
+  //       products:
+  //         `${
+  //           formattedProducts[0].qty > countStored?.[1]
+  //             ? `\n${formattedProducts[0].name}:  ${countStored?.[1] || 0}\n`
+  //             : ``
+  //         }` +
+  //         `${
+  //           formattedProducts[1].qty > countStored?.[2]
+  //             ? `\n${formattedProducts[1].name}:  ${countStored?.[2] || 0}\n`
+  //             : ``
+  //         } `,
+  //     };
 
-      // Send a POST request to the createOrder endpoint
-      const response = await fetch("/api/insertOrder", {
-        method: "POST",
-        body: JSON.stringify(orderData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  //     // Send a POST request to the createOrder endpoint
+  //     const response = await fetch("/api/insertOrder", {
+  //       method: "POST",
+  //       body: JSON.stringify(orderData),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      // Handle the response
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-      } else {
-        console.error(response.statusText);
-      }
+  //     // Handle the response
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log(result);
+  //     } else {
+  //       console.error(response.statusText);
+  //     }
 
-      // ... remaining code ...
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //     // ... remaining code ...
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -333,26 +311,48 @@ export default function Payment({
 
                 <div className="justify-center flex items-center mt-10">
                   {totalPayableAmount ? (
-                    <button
-                      onClick={makePayment}
-                      className="z-10 text-white bg-theme py-3 px-5 rounded-lg hover:bg-opacity-80 transition-all"
-                    >
-                      Pay with BHIM/UPI ID
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 inline-block ml-2 h-6"
+                    <div className="space-y-5 ">
+                      <button
+                        onClick={makePayment}
+                        className="z-10 w-72 text-white bg-theme py-3 px-5 rounded-lg hover:bg-opacity-80 transition-all"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </button>
+                        Pay with BHIM/UPI ID
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 inline-block ml-2 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </button>
+                      <br></br>
+                      <Link href="/checkoutForm">
+                        <button className="z-10 w-72 mt-4 text-white bg-theme py-3 px-5 rounded-lg hover:bg-opacity-80 transition-all">
+                          Pay with Card
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 inline-block ml-2 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        </button>
+                      </Link>
+                    </div>
                   ) : (
                     <Link
                       href="/"

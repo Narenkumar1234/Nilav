@@ -181,8 +181,10 @@ export default function Cart({
                 </div>
                 <div>
                   <img
-                    className="mx-auto w-full lg:w-10/12"
+                    className="mx-auto w-8/12 lg:w-6/12"
                     src="/Shopping bag-amico-darkgreen.png"
+                    width={"100"}
+                    height={100}
                     alt="Shopping Bag"
                   />
                   <div className="flex justify-center">

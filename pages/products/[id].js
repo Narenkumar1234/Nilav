@@ -166,7 +166,7 @@ export default function Products({
 
   function handleBuyNow() {
     setIsNavOpen(true);
-    console.log(isNavOpen);
+    // console.log(isNavOpen);
     setcartGrams((prevItems) => {
       //set the product quantity per gram
       const updatedcartGrams = {

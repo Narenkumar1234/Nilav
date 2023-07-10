@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Loading from "@/components/loading";
 import ReactSwitch from "react-switch";
 import Layout from "./layout/layout";
@@ -14,6 +14,11 @@ export default function Details({
   isTN,
   setIsTN,
 }) {
+  useEffect(() => {
+    localStorage.setItem("phoneNumber", phoneNumber);
+    localStorage.setItem("address", address);
+    localStorage.setItem("name", name);
+  }, [phoneNumber, name, address]);
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
