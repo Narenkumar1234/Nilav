@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
 import Layout from "./layout/layout";
 import Testimonials from "./testimonials";
+import ProblemSolution from "@/components/problemSolution";
 export async function getServerSideProps() {
   try {
     const prisma = new PrismaClient();
@@ -64,7 +65,7 @@ export default function Home({ formattedProducts }) {
     <>
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
-        <Navbar page="1" setIsLoading={setIsLoading}></Navbar> 
+        <Navbar page="1" setIsLoading={setIsLoading}></Navbar>
         <h1 className="font-bold items-center justify-center flex text-lg pt-10">
           Our Products!
         </h1>
@@ -107,7 +108,14 @@ export default function Home({ formattedProducts }) {
             </div>
           ))}
         </div>
-        <Testimonials />
+        <div className="pb-10">
+          <Testimonials />
+        </div>
+     
+        <div>
+            <ProblemSolution/>
+            
+        </div>
       </Layout>
     </>
   );

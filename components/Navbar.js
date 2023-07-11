@@ -28,22 +28,25 @@ export default function Navbar({
       setIsSliderOpen(false);
       setIsNavOpen(false);
     }
-
   }
 
-    function handleShopNowClick(load) {
-        setIsSliderOpen(false);
-        setIsNavOpen(false);
-        setIsLoading(load);
-    }
+  function handleShopNowClick(load) {
+    setIsSliderOpen(false);
+    setIsNavOpen(false);
+    setIsLoading(load);
+  }
 
   const [cartGrams, setcartGrams] = useState({});
   const [count, setCount] = useState({});
   const [price, setPrice] = useState({});
 
   return (
-    <div className="sticky bg-theme shadow-xl z-20 border-bg border-green-600 text-white px-2 flex justify-between items-center">
-      <div className="font-bold flex items-center">
+    <div className="sticky bg-theme shadow-xl z-20 border-bg border-green-600 text-white lg:px-4 px-2 flex justify-between cursor-pointer items-center text-center">
+      <div className=" italic text-sm">
+        <p>100%</p>  
+        <p>Herbals</p>
+      </div>
+      <div className="font-bold flex  items-center">
         <div className="flex items-center justify-center">
           <img
             src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
@@ -71,7 +74,12 @@ export default function Navbar({
             className=" slider-panel flex flex-col h-screen bg-subtheme w-10/12 lg:w-4/12 lg:px-8 lg:py-16 space-y-10 absolute top-0 right-0 "
           >
             <div className="text-black">
-              <Cart count={count} setCount={setCount} setPrice={setPrice} handleOutsideClick={handleShopNowClick}/>
+              <Cart
+                count={count}
+                setCount={setCount}
+                setPrice={setPrice}
+                handleOutsideClick={handleShopNowClick}
+              />
             </div>
           </div>
         </div>

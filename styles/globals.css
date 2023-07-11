@@ -66,6 +66,6 @@ ul.control-dots li.dot.selected {
   }
 }
 
-/* 
-Empty Cart Design */
-
+.colSpan{
+  grid-column: span 1.5 !important;
+}

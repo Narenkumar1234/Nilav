@@ -33,7 +33,7 @@ export default function Testimonials({}) {
                   type="button"
                   onClick={onClickHandler}
                   title={label}
-                  className="absolute left-3 lg:left-44 lg:hidden top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-black bg-opacity-50 rounded-full w-5 h-6 lg:w-10 lg:h-10  flex items-center justify-center text-white shadow"
+                  className="absolute left-3 lg:left-44 hidden top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-black bg-opacity-50 rounded-full w-5 h-6 lg:w-10 lg:h-10  items-center justify-center text-white shadow"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ export default function Testimonials({}) {
                   type="button"
                   onClick={onClickHandler}
                   title={label}
-                  className="absolute right-3 lg:right-44 lg:hidden top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-black bg-opacity-50 rounded-full w-5 h-6 lg:w-10 lg:h-10  flex items-center justify-center text-white shadow"
+                  className="absolute right-3 lg:right-44 hidden top-1/2 transform -translate-y-1/2 z-10 cursor-pointer bg-black bg-opacity-50 rounded-full w-5 h-6 lg:w-10 lg:h-10  items-center justify-center text-white shadow"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
