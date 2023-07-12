@@ -69,3 +69,8 @@ ul.control-dots li.dot.selected {
 .colSpan{
   grid-column: span 1.5 !important;
 }
+
+.swiper {
+  width: 600px;
+  height: 300px;
+}
