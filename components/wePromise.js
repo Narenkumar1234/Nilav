@@ -1,4 +1,3 @@
-
 export default function WePromise() {
   const images = [
     {
@@ -26,7 +25,7 @@ export default function WePromise() {
 
   return (
     <div className="lg:relative">
-      <h1 className="font-bold items-center justify-center flex text-lg pt-10 px-10 text-center ">
+      <h1 className="font-bold items-center justify-center flex text-2xl pt-10 px-10 text-center ">
         We Guarantee !
       </h1>
       <div className="py-10">
@@ -41,7 +40,7 @@ export default function WePromise() {
                   <img className="" src={img.src} alt="" />
                 </div>
                 <div>
-                  <span className="font-bold text-sm ">{img.name}</span>
+                  <span className="font-bold text-lg ">{img.name}</span>
                 </div>
               </div>
             ))}

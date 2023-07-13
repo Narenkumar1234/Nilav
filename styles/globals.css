@@ -4,8 +4,10 @@
 
 body {
   background: #edf2f7;
-  font-family: 'Kalam', cursive;
+font-family: 'Charm', cursive;
+
 }
+
 
 .product-div {
   width: 100%;
@@ -30,7 +32,6 @@ body {
   display: inline;
   margin-right: 5px;
 }
-
 
 /* styles.css */
 
@@ -77,7 +78,6 @@ ul.control-dots li.dot.selected {
   background-color: #000; /* Adjust this value to change the color of the active line */
 }
 
-
 @media (max-width: 767px) {
   .product-page-image-div {
     height: 30vh;
@@ -85,17 +85,16 @@ ul.control-dots li.dot.selected {
   }
 
   ul.control-dots li.dot {
-  background-color: green !important;
-  border: none !important;
-  width: 30px !important; /* Adjust this value to change the width of the line */
-  height: 4px !important; /* Adjust this value to change the height of the line */
-  margin: 0 4px !important;
-  border-radius: 0% !important;
-}
+    background-color: green !important;
+    border: none !important;
+    width: 30px !important; /* Adjust this value to change the width of the line */
+    height: 4px !important; /* Adjust this value to change the height of the line */
+    margin: 0 4px !important;
+    border-radius: 0% !important;
+  }
 
-ul.control-dots li.dot.selected {
-  background-color: darkgreen;
-  /* Adjust this value to change the spacing between the lines */
-}
-
+  ul.control-dots li.dot.selected {
+    background-color: darkgreen;
+    /* Adjust this value to change the spacing between the lines */
+  }
 }

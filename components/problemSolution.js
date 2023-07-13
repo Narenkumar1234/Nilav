@@ -59,7 +59,7 @@ export default function ProblemSolution() {
   ];
   return (
     <div className="lg:relative">
-      <h1 className="font-bold items-center justify-center flex text-lg pt-10 px-10 text-center ">
+      <h1 className="font-bold items-center justify-center flex text-2xl pt-10 px-10 text-center ">
         Unlocking the remedy to your concerns !
       </h1>
       <div className="py-10">
@@ -81,7 +81,7 @@ export default function ProblemSolution() {
                     <div className="w-20 rounded-full  border-button border-4 p-2">
                       <img className=" p-1.5" src={img.src} alt="" />
                     </div>
-                    <span className="font-bold text-xs">{img.name}</span>
+                    <span className="font-bold text-lg">{img.name}</span>
                   </div>
                 ))}
               </div>

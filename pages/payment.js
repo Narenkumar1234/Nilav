@@ -36,12 +36,7 @@ export async function getServerSideProps() {
     };
   }
 }
-export default function Payment({
-
-  formattedProducts,
-  isTN,
-  setPaymentId1,
-}) {
+export default function Payment({ formattedProducts, isTN, setPaymentId1 }) {
   const [total, setTotal] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [shipment, setShipment] = useState(0);
@@ -99,7 +94,6 @@ export default function Payment({
   }, [filtercartGrams, priceStored, countStored, isTN]);
 
   const { push } = useRouter();
-
 
   // Razor Pay Initialize
   const initializeRazorpay = () => {
@@ -254,11 +248,11 @@ export default function Payment({
           <div className="lg:flex lg:justify-center lg:mt-10 lg:py-10">
             <div className="bg-subtheme lg:bg-white lg:max-w-md lg:w-1/2 lg:py-4 rounded-xl">
               <div className=" w-full">
-                <h1 className="font-bold items-center justify-center flex text-lg py-10">
+                <h1 className="font-bold items-center justify-center flex text-2xl py-10">
                   Payment!
                 </h1>
 
-                <div className="p-3 flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5 text-gray-700 font-normal">
+                <div className="p-3 flex items-center text-lg justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5 text-gray-700 font-normal">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -282,8 +276,8 @@ export default function Payment({
                   <div className="grid grid-rows-3 space-y-2">
                     <div className="row-span-1">
                       <div className="flex justify-between items-center">
-                        <h1 className="text-lg font-medium">Total</h1>
-                        <h1 className="text-gray-900 text-lg">₹{total}</h1>
+                        <h1 className="text-2xl font-medium">Total</h1>
+                        <h1 className="text-gray-900 text-2xl">₹{total}</h1>
                       </div>
                     </div>
                     {/* <div className="row-span-1 text-gray-950 flex justify-between items-center">
@@ -291,8 +285,8 @@ export default function Payment({
                     <h1 className="text-gray-500">-10%</h1>
                   </div> */}
                     <div className="row-span-1 flex justify-between items-center">
-                      <h1 className="text-lg">Shipping Charges</h1>
-                      <h1 className="text-gray-500 text-lg">+₹{shipment}</h1>
+                      <h1 className="text-2xl">Shipping Charges</h1>
+                      <h1 className="text-gray-500 text-2xl">+₹{shipment}</h1>
                     </div>
                     {/* <div className="row-span-1 flex justify-between items-center">
                     <h1>Coupon Discount</h1>
@@ -301,8 +295,8 @@ export default function Payment({
                     </h1>
                   </div> */}
                     <div className="row-span-1 flex justify-between items-center">
-                      <h1 className="text-lg">Total Payable Amount</h1>
-                      <h1 className="text-gray-900 text-lg">
+                      <h1 className="text-2xl">Total Payable Amount</h1>
+                      <h1 className="text-gray-900 text-2xl">
                         ₹{totalPayableAmount}
                       </h1>
                     </div>

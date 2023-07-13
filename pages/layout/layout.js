@@ -34,48 +34,36 @@ export default function Layout({ children }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className=" text-2xl"
-                  />
+                  <FontAwesomeIcon icon={faFacebook} className=" text-2xl" />
                 </a>
                 <a
                   href="https://www.twitter.com/narumugaiherbals"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FontAwesomeIcon
-                    icon={faTwitter}
-                    className=" text-2xl"
-                  />
+                  <FontAwesomeIcon icon={faTwitter} className=" text-2xl" />
                 </a>
                 <a
                   href="https://www.instagram.com/_.narumugai"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FontAwesomeIcon
-                    icon={faInstagram}
-                    className=" text-2xl"
-                  />
+                  <FontAwesomeIcon icon={faInstagram} className=" text-2xl" />
                 </a>
                 <a
                   href="https://wa.me/+918122779620"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FontAwesomeIcon
-                    icon={faWhatsapp}
-                    className=" text-2xl"
-                  />
+                  <FontAwesomeIcon icon={faWhatsapp} className=" text-2xl" />
                 </a>
               </div>
             </div>
             <div className="mb-4 lg:mb-0">
-              <h3 className="lg:text-lg text-xs  font-bold mb-2 lg:mb-4 ">
+              <h3 className="lg:text-2xl text-lg  font-bold mb-2 lg:mb-4 ">
                 OUR POLICIES
               </h3>
-              <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-2  text-xs lg:text-sm gap-4">
+              <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-2  text-lg lg:text-lg gap-4">
                 <a href="/refundPolicy" className="">
                   Cancellation & Refund
                 </a>
@@ -94,17 +82,14 @@ export default function Layout({ children }) {
               </div>
             </div>
             <div>
-              <h3 className="lg:text-lg text-xs lg:font-bold font-bold mb-2 lg:mb-4 ">
+              <h3 className="lg:text-2xl text-lg lg:font-bold font-bold mb-2 lg:mb-4 ">
                 CONTACT US
               </h3>
-              <div className="flex text-xs lg:text-sm items-center mb-2 lg:mb-4">
-                <FontAwesomeIcon
-                  icon={faEnvelope}
-                  className=" mr-2"
-                />
+              <div className="flex text-lg lg:text-lg items-center mb-2 lg:mb-4">
+                <FontAwesomeIcon icon={faEnvelope} className=" mr-2" />
                 <p className="">narumugaiherbals2023@gmail.com</p>
               </div>
-              <div className="flex text-xs lg:text-sm items-center">
+              <div className="flex text-lg lg:text-lg items-center">
                 <FontAwesomeIcon icon={faPhone} className=" mr-2" />
                 <p className="">+918122779620</p>
               </div>

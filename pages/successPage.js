@@ -47,7 +47,7 @@ export default function SuccessPage({
   const { payment_intent } = router.query;
   // console.log(payment_intent);
   const [isLoading, setIsLoading] = useState(false);
- var messageToSend;
+  var messageToSend;
 
   useEffect(() => {
     const cartGramsStored = JSON.parse(localStorage.getItem("cartGrams"));
@@ -124,7 +124,7 @@ export default function SuccessPage({
       };
       // console.log(orderData, messageToBeSent);
 
-      messageToSend = messageToBeSent
+      messageToSend = messageToBeSent;
       insertOrder(orderData);
     }
   }, []);
@@ -152,7 +152,6 @@ export default function SuccessPage({
   };
 
   const insertOrder = async (orderData) => {
-  
     try {
       const countStored = JSON.parse(localStorage.getItem("count"));
 
@@ -218,8 +217,8 @@ export default function SuccessPage({
                   <div className="text-center">
                     <h1 className="font-bold ">Whoo! Order Placed </h1>
                     <br />
-                    <h1 className="font-bold italic text-sm">Thank you for </h1>
-                    <h1 className="font-bold italic mb-3 text-sm">
+                    <h1 className="font-bold italic text-lg">Thank you for </h1>
+                    <h1 className="font-bold italic mb-3 text-lg">
                       Shopping With us{" "}
                     </h1>
                     <h1 className="font-bold">
@@ -239,7 +238,7 @@ export default function SuccessPage({
                       Contine Shopping
                     </Link>
                   </div>
-                  <div className="text-xs mt-10 text-center font-bold m-3">
+                  <div className="text-lg mt-10 text-center font-bold m-3">
                     You should take a screenshot of the payment ID for reference
                     in case of order cancellation.
                   </div>

@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Loading from "@/components/loading";
 import ReactSwitch from "react-switch";
 import Layout from "./layout/layout";
@@ -29,15 +29,15 @@ export default function Details({
           <div className="bg-subtheme w-full mx-auto ">
             <div className="lg:flex lg:justify-center lg:mt-10 lg:  py-10">
               <div className="bg-subtheme lg:bg-white lg:max-w-md lg:w-1/2 lg:py-4 rounded-xl">
-                <h1 className="font-bold text-lg py-10 text-center">
+                <h1 className="font-bold text-2xl py-10 text-center">
                   Delivery Details!
                 </h1>
                 <div className="space-y-5 mx-5 ">
                   <div className=" space-y-2 ">
-                    <div className="text-sm font-normal">
+                    <div className="text-lg font-normal">
                       <p>Name: </p>
                     </div>
-                    <div className="text-sm">
+                    <div className="text-lg">
                       <input
                         required
                         type="text"
@@ -49,10 +49,10 @@ export default function Details({
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-sm font-normal">
+                    <div className="text-lg font-normal">
                       <h1>Mobile: </h1>
                     </div>
-                    <div className="text-sm">
+                    <div className="text-lg">
                       <input
                         maxLength={10}
                         pattern="[0-9]*"
@@ -65,14 +65,14 @@ export default function Details({
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <div className="text-sm font-normal">
+                    <div className="text-lg font-normal">
                       <h1 className="mb-3">Address: </h1>
                     </div>
                     <div className="">
                       <textarea
                         id="message"
                         rows="4"
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        className="block p-2.5 w-full text-lg text-gray-900 bg-gray-50 rounded-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                         placeholder={address}
                         onChange={(e) => setAddress(e.target.value)}
                       ></textarea>
@@ -81,7 +81,7 @@ export default function Details({
                 </div>
                 <div className="my-10 flex items-center justify-between  mx-5 ">
                   <div className="">
-                    <h1 className="text-sm ">
+                    <h1 className="text-lg ">
                       Are you located Within TamilNadu?{" "}
                     </h1>
                   </div>
@@ -100,7 +100,7 @@ export default function Details({
                       />
                       <label
                         htmlFor="locationSwitch"
-                        className="ml-2 text-sm font-medium text-black"
+                        className="ml-2 text-lg font-medium text-black"
                       >
                         {isTN ? "Yes" : "No"}
                       </label>

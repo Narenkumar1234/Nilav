@@ -7,14 +7,12 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-
 export default function Testimonials({}) {
   const stars = [1, 2, 3, 4, 5];
   return (
     <>
-
       <div className="lg:relative">
-        <h1 className="font-bold items-center justify-center flex text-lg pt-10 px-10 text-center ">
+        <h1 className="font-bold items-center justify-center flex text-2xl pt-10 px-10 text-center ">
           Our Customers' Beauty Journey
         </h1>
         <div className="lg:bg-subtheme lg:mx-52 lg:rounded-3xl">
@@ -75,31 +73,31 @@ export default function Testimonials({}) {
                     <div className="px-6 py-4">
                       <div className="flex items-center justify-between">
                         <div className="">
-                          <h3 className="text-lg font-bold text-gray-900">
+                          <h3 className="text-2xl font-bold text-gray-900">
                             {feedback.name}
                           </h3>
                           {stars.map((star, index) => (
                             <FontAwesomeIcon
                               icon={faStar}
-                              className="text-sm text-yellow-400"
+                              className="text-lg text-yellow-400"
                               key={index}
                             />
                           ))}
                         </div>
                         <div className="flex-shrink-0">
-                          <span className="bg-button text-white text-xs px-2 py-1 rounded-lg">
+                          <span className="bg-button text-white text-lg px-2 py-1 rounded-lg">
                             Trusted Buyer
                           </span>
                         </div>
                       </div>
                       <div className="mt-4">
-                        <p className="text-gray-800 text-sm">
+                        <p className="text-gray-800 text-lg">
                           "{feedback.feedback}"
                         </p>
                       </div>
                     </div>
                     <div className="px-6 py-2 bg-gray-100">
-                      <span className="text-xs leading-none text-gray-600">
+                      <span className="text-lg leading-none text-gray-600">
                         June 25, 2023
                       </span>
                     </div>

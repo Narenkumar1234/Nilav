@@ -67,7 +67,7 @@ export default function Home({ formattedProducts }) {
       <Layout>
         {isLoading ? <Loading /> : <div></div>}
         <Navbar page="1" setIsLoading={setIsLoading}></Navbar>
-        <h1 className="font-bold items-center justify-center flex text-lg pt-10">
+        <h1 className="font-bold items-center justify-center flex text-2xl pt-10">
           Our Products!
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-10 gap-5 mx-auto max-w-6xl">
@@ -87,14 +87,14 @@ export default function Home({ formattedProducts }) {
                       </div>
                     </div>
                     <div className="p-3 mx-auto text-justify w-11/12 lg:h-44">
-                      <h1 className="text-center font-semibold mb-2">
+                      <h1 className="text-center text-xl font-semibold mb-2">
                         {formattedProduct.name}
                       </h1>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-gray-400 text-lg">
                         {formattedProduct.description}
                       </p>
                     </div>
-                    <div className="text-center p-3 pb-10">
+                    <div className="text-center  mt-10 p-3 pb-10">
                       <Link
                         onClick={() => setIsLoading(true)}
                         href={`/products/${formattedProduct.id}`}

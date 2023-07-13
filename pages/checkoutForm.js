@@ -135,23 +135,28 @@ function CheckoutForm({ clientSecret, totalAmount }) {
                 id="payment-element"
                 options={paymentElementOptions}
               />
-              <div className="flex items-center justify-center border border-black hover:bg-button mt-5 rounded-lg hover:text-white">
+              <div className="flex justify-center ">
                 <button
-                  disabled={isLoading || !stripe || !elements}
                   id="submit"
-                  className=""
+                  className="flex items-center justify-center border  px-20  border-black hover:bg-button mt-5 rounded-lg hover:text-white"
                 >
-                  <div id="button-text " className="text-center p-3">
-                    {isLoading ? (
-                      <div className="spinner" id="spinner"></div>
-                    ) : (
-                      <div className="">{"Pay now ₹" + totalAmount}</div>
-                    )}
+                  <div
+                    disabled={isLoading || !stripe || !elements}
+                    id="submit"
+                    className=""
+                  >
+                    <div className="text-center p-3">
+                      {isLoading ? (
+                        <div className="spinner" id="spinner"></div>
+                      ) : (
+                        <div className="">{"Pay now ₹" + totalAmount}</div>
+                      )}
+                    </div>
                   </div>
                 </button>
+                {/* Show any error or success messages */}
               </div>
-              {/* Show any error or success messages */}
-              {message && <div id="payment-message">{message}</div>}
+                {message && <div id="ayment-message" className="mx-auto text-center mt-3 text-red-500">{message}</div>}
             </form>
           </div>
         </div>

@@ -269,7 +269,7 @@ export default function Products({
                             [formattedProduct.id]: e.target.value,
                           }));
                         }}
-                        className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5 "
+                        className=" bg-gray-50 border border-gray-300 text-gray-400  text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5 "
                       >
                         {productOnePriceList.map(({ key = id2++ }) => (
                           <option
@@ -287,7 +287,7 @@ export default function Products({
                       </select>
                     </div>
                     {formattedProduct.qty === 0 ? (
-                      <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                      <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-lg">
                         Out of Stock
                       </div>
                     ) : (
@@ -361,7 +361,7 @@ export default function Products({
                         [formattedProduct.id]: e.target.value,
                       }));
                     }}
-                    className=" bg-gray-50 border border-gray-300 text-gray-400  text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
+                    className=" bg-gray-50 border border-gray-300 text-gray-400  text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-max p-1.5"
                   >
                     {productOnePriceList.map(({ key = id1++ }) => (
                       <option
@@ -377,7 +377,7 @@ export default function Products({
                   </select>
                 </div>
                 {formattedProduct.qty === 0 ? (
-                  <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                  <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-lg">
                     Out of Stock
                   </div>
                 ) : (

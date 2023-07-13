@@ -42,12 +42,12 @@ export default function Navbar({
 
   return (
     <div className="relative bg-theme p-3 shadow-xl z-20 border-bg border-green-600 text-white lg:px-4 px-2 flex justify-between cursor-pointer items-center text-center">
-      <div className="invisible italic text-sm">
+      <div className="invisible italic text-xl">
         <p>100%</p>
         <p>Herbals</p>
       </div>
-      <div className="font-bold flex absolute left-48 justify-center right-52  items-center">
-        <div className="flex items-center justify-center">
+      <div className="font-bold flex absolute left-48 justify-center text-xl right-52  items-center">
+        <div className="flex items-center  justify-center">
           <img
             src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
             alt="Watermark"
@@ -58,7 +58,7 @@ export default function Navbar({
         <Link href="/">Narumugai</Link>
       </div>
       <div className="flex items-center justify-center w-auto">
-        {/* <i className="text-lg hidden lg:block">Unleash Your Beauty </i> */}
+        {/* <i className="text-2xl hidden lg:block">Unleash Your Beauty </i> */}
 
         <button
           onClick={toggleSlider}

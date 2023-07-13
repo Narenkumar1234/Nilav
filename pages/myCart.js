@@ -93,7 +93,6 @@ export default function Cart({
       );
       setPriceStored(JSON.parse(localStorage.getItem("price")));
       setcartGramsStored(JSON.parse(localStorage.getItem("cartGrams")));
-      
     } catch (error) {
       setFilteredProducts([]);
     }
@@ -106,13 +105,13 @@ export default function Cart({
         <div className="overflow-hidden mx-auto ">
           <div className=""></div>
           <div className="bg-subtheme h-screen w-full ">
-            <h1 className="font-bold relative items-center justify-center flex text-lg pt-10 ">
+            <h1 className="font-bold relative items-center justify-center flex text-2xl pt-10 ">
               My Cart!
             </h1>
 
             {filteredProducts.length > 0 ? (
               <div className="lg:flex justify-between items-center">
-                <div className="flex  items-center text-xs justify-center space-x-1 rounded-2xl py-3 px-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+                <div className="flex  items-center text-lg justify-center space-x-1 rounded-2xl py-3 px-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +126,7 @@ export default function Cart({
                       />
                     </svg>
                   </span>
-                  <span>
+                  <span className="text-sm lg:text-sm">
                     You have {filteredProducts.length} items in your cart
                   </span>
                 </div>
@@ -139,7 +138,7 @@ export default function Cart({
                   }}
                   className=" m-2  mx-10 lg:block flex items-center justify-center border border-black p-2 rounded-xl hover:text-white hover:bg-theme hover:cursor-pointer"
                 >
-                  <div className="font-bold text-xs mr-1 lg:hidden ">
+                  <div className="font-bold text-lg mr-1 lg:hidden ">
                     Empty Cart
                   </div>
                   <div>
@@ -147,13 +146,13 @@ export default function Cart({
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className=" w-5 h-5"
                     >
                       <path
                         stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinejoin="round"
                         d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                       />
                     </svg>
@@ -162,7 +161,7 @@ export default function Cart({
               </div>
             ) : (
               <div>
-                <div className="flex items-center text-xs justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
+                <div className="flex items-center text-lg justify-center space-x-1 rounded-2xl py-3 bg-gray-200 text-center mx-10 my-5  text-gray-700 font-normal">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +207,7 @@ export default function Cart({
             <div className="">
               {filteredProducts.map((product) =>
                 count?.[product.id] ? (
-                  <container key={product.id} className="col-span-1 ">
+                  <div key={product.id} className="col-span-1 ">
                     <div className="flex relative p-4 lg:p-6 ">
                       <div className="w-24 h-24 overflow-hidden">
                         <img
@@ -219,10 +218,10 @@ export default function Cart({
                         />
                       </div>
                       <div className="grid grid-rows-3 ml-2">
-                        <span className="text-sm font-bold">
+                        <span className="text-lg font-bold">
                           {product.name}
                         </span>
-                        <span className="text-sm text-gray-500 ">
+                        <span className="text-lg text-gray-500 ">
                           {cartGramsStored[product.id]}
                           {product.id == 1 ? "ml" : "g"}
                         </span>
@@ -233,7 +232,7 @@ export default function Cart({
                         </span>
                       </div>
                       {product.qty === 0 ? (
-                        <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-xs">
+                        <div className="outline outline-offset-2 outline-1 rounded-md text-center p-1 text-lg">
                           Out of Stock
                         </div>
                       ) : (
@@ -316,7 +315,7 @@ export default function Cart({
                       )}
                     </div>
                     <hr className="mx-5 border-gray-300 shadow-sm border-0.5 rounded-full"></hr>
-                  </container>
+                  </div>
                 ) : (
                   <div key={product.id}></div>
                 )
@@ -336,7 +335,7 @@ export default function Cart({
                           }}
                           href="/customerDetails"
                         >
-                          <div className="bg-button text-sm text-white font-semibold px-4 py-2  rounded">
+                          <div className="bg-button text-lg text-white font-semibold px-4 py-2  rounded">
                             Checkout !
                           </div>
                         </Link>
@@ -355,7 +354,7 @@ export default function Cart({
                           }}
                           href="/"
                         >
-                          <div className="bg-theme w-full text-sm text-white font-semibold px-4 py-2  rounded">
+                          <div className="bg-theme w-full text-lg text-white font-semibold px-4 py-2  rounded">
                             Shop More !
                           </div>
                         </Link>
