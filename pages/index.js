@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { PrismaClient } from "@prisma/client";
 import Loading from "@/components/loading";
 import Layout from "./layout/layout";
-import Testimonials from "./testimonials";
+import Testimonials from "../components/testimonials";
 import ProblemSolution from "@/components/problemSolution";
 import WePromise from "@/components/wePromise";
 export async function getServerSideProps() {

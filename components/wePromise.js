@@ -37,7 +37,7 @@ export default function WePromise() {
                 key={index}
                 className=" lg:mb-20  space-y-5 w-24 mb-10 mx-auto"
               >
-                <div className="w-24 hover:animate-bounce rounded-full bg-gradient-radial from-green-500 to-button p-5 text-white">
+                <div className="w-24 shadow-2xl shadow-green-700 rounded-full bg-gradient-radial from-green-500 to-button p-5 text-white">
                   <img className="" src={img.src} alt="" />
                 </div>
                 <div>

@@ -9,11 +9,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 export default function Testimonials({}) {
-  const [isLoading, setIsLoading] = useState(false);
   const stars = [1, 2, 3, 4, 5];
   return (
     <>
-      {isLoading ? <Loading /> : <div></div>}
 
       <div className="lg:relative">
         <h1 className="font-bold items-center justify-center flex text-lg pt-10 px-10 text-center ">

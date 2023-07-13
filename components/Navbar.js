@@ -42,7 +42,7 @@ export default function Navbar({
 
   return (
     <div className="relative bg-theme p-3 shadow-xl z-20 border-bg border-green-600 text-white lg:px-4 px-2 flex justify-between cursor-pointer items-center text-center">
-      <div className=" italic text-sm">
+      <div className="invisible italic text-sm">
         <p>100%</p>
         <p>Herbals</p>
       </div>
@@ -58,7 +58,7 @@ export default function Navbar({
         <Link href="/">Narumugai</Link>
       </div>
       <div className="flex items-center justify-center w-auto">
-        <i className="text-lg hidden lg:block">Unleash Your Beauty </i>
+        {/* <i className="text-lg hidden lg:block">Unleash Your Beauty </i> */}
 
         <button
           onClick={toggleSlider}

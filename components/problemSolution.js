@@ -74,7 +74,7 @@ export default function ProblemSolution() {
           interval={5000}
         >
           {images.map((sliderImages, index) => (
-            <div className="flex justify-center">
+            <div key={index} className="flex justify-center">
               <div className="flex flex-wrap lg:m-0 mx-7 w-10/12 lg:w-8/12">
                 {sliderImages.map((img, index) => (
                   <div key={index} className="lg:mb-20 mb-10 mx-auto">
