@@ -1,5 +1,5 @@
 import { Carousel } from "react-responsive-carousel";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 export default function ProblemSolution() {
   const images = [
     [
@@ -63,14 +63,23 @@ export default function ProblemSolution() {
         Your Problem, Our Solution !
       </h1>
       <div className="py-10">
-        <Carousel showThumbs={false} showStatus={false} transitionTime={660}>
+        <Carousel
+          infiniteLoop
+          autoPlay
+          emulateTouch={true}
+          showThumbs={false}
+          showStatus={false}
+          swipeable={true}
+          transitionTime={700}
+          interval={5000}
+        >
           {images.map((sliderImages, index) => (
             <div className="flex justify-center">
-              <div className="flex flex-wrap lg:m-0 mx-7 w-10/12 ">
+              <div className="flex flex-wrap lg:m-0 mx-7 w-10/12 lg:w-8/12">
                 {sliderImages.map((img, index) => (
                   <div key={index} className="lg:mb-20 mb-10 mx-auto">
-                    <div className="w-20 rounded-full bg-white border-green-500 border-4 p-2">
-                      <img className="p-1.5" src={img.src} alt="" />
+                    <div className="w-20 rounded-full  border-button border-4 p-2">
+                      <img className=" p-1.5" src={img.src} alt="" />
                     </div>
                     <span className="font-bold text-xs">{img.name}</span>
                   </div>

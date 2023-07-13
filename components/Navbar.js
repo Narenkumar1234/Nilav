@@ -41,12 +41,12 @@ export default function Navbar({
   const [price, setPrice] = useState({});
 
   return (
-    <div className="sticky bg-theme shadow-xl z-20 border-bg border-green-600 text-white lg:px-4 px-2 flex justify-between cursor-pointer items-center text-center">
+    <div className="relative bg-theme p-3 shadow-xl z-20 border-bg border-green-600 text-white lg:px-4 px-2 flex justify-between cursor-pointer items-center text-center">
       <div className=" italic text-sm">
         <p>100%</p>
         <p>Herbals</p>
       </div>
-      <div className="font-bold flex  items-center">
+      <div className="font-bold flex absolute left-48 justify-center right-52  items-center">
         <div className="flex items-center justify-center">
           <img
             src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
@@ -75,7 +75,7 @@ export default function Navbar({
             ref={sliderRef}
             className=" slider-panel flex flex-col h-screen bg-subtheme w-10/12 lg:w-4/12 lg:px-8 lg:py-16 space-y-10 absolute top-0 right-0 "
           >
-            <div className="text-black">
+            <div className="text-black text-left">
               <Cart
                 count={count}
                 setCount={setCount}

@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-  background: #EDF2F7;
+body {
+  background: #edf2f7;
   font-family: "Poppins", sans-serif;
-
 }
 
 .product-div {
@@ -23,7 +21,6 @@ body{
   margin: auto;
 }
 
-
 .overflowHidden {
   overflow: hidden;
 }
@@ -34,24 +31,25 @@ body{
   margin-right: 5px;
 }
 
-@media (max-width: 767px) {
-  .product-page-image-div {
-    height: 30vh;
-    width: 100%;
-  }
-}
-
 
 /* styles.css */
 
 ul.control-dots li.dot {
   background-color: green !important;
+  border: none !important;
+  width: 40px !important; /* Adjust this value to change the width of the line */
+  height: 4px !important; /* Adjust this value to change the height of the line */
+  margin: 0 4px !important;
+  border-radius: 0% !important;
 }
 
 ul.control-dots li.dot.selected {
   background-color: darkgreen;
+  border: none;
+  width: 50px; /* Adjust this value to change the width of the line */
+  height: 4px; /* Adjust this value to change the height of the line */
+  margin: 0 4px; /* Adjust this value to change the spacing between the lines */
 }
-
 
 .slider-panel {
   animation: slide-in 0.3s ease-in-out forwards;
@@ -66,11 +64,38 @@ ul.control-dots li.dot.selected {
   }
 }
 
-.colSpan{
-  grid-column: span 1.5 !important;
-}
-
 .swiper {
   width: 600px;
   height: 300px;
+}
+
+.carousel .carousel-indicators li {
+  background-color: transparent;
+}
+
+.carousel .carousel-indicators .active {
+  background-color: #000; /* Adjust this value to change the color of the active line */
+}
+
+
+@media (max-width: 767px) {
+  .product-page-image-div {
+    height: 30vh;
+    width: 100%;
+  }
+
+  ul.control-dots li.dot {
+  background-color: green !important;
+  border: none !important;
+  width: 30px !important; /* Adjust this value to change the width of the line */
+  height: 4px !important; /* Adjust this value to change the height of the line */
+  margin: 0 4px !important;
+  border-radius: 0% !important;
+}
+
+ul.control-dots li.dot.selected {
+  background-color: darkgreen;
+  /* Adjust this value to change the spacing between the lines */
+}
+
 }

@@ -21,6 +21,7 @@ export default function Testimonials({}) {
         </h1>
         <div className="lg:bg-subtheme lg:mx-52 lg:rounded-3xl">
           <Carousel
+            emulateTouch={true}
             showThumbs={false}
             showStatus={false}
             infiniteLoop
@@ -69,7 +70,7 @@ export default function Testimonials({}) {
             {feedBack.feedback.map((feedback, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center mx-10 my-8 text-left py-8"
+                className="flex flex-col items-center justify-center mx-10 my-8 py-3 text-left"
               >
                 <div className="max-w-xl mx-auto">
                   <div className="bg-white shadow-lg rounded-lg overflow-hidden">

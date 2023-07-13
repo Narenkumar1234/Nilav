@@ -6,6 +6,7 @@ import Loading from "@/components/loading";
 import Layout from "./layout/layout";
 import Testimonials from "./testimonials";
 import ProblemSolution from "@/components/problemSolution";
+import WePromise from "@/components/wePromise";
 export async function getServerSideProps() {
   try {
     const prisma = new PrismaClient();
@@ -52,14 +53,14 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({ formattedProducts }) {  
+export default function Home({ formattedProducts }) {
   const [isLoading, setIsLoading] = useState(false);
- useEffect(() => {
-   if (localStorage.getItem("isPageLoaded") === null) {
-     localStorage.clear();
-     localStorage.setItem("isPageLoaded", "true");
-   }
- }, []);
+  useEffect(() => {
+    if (localStorage.getItem("isPageLoaded") === null) {
+      localStorage.clear();
+      localStorage.setItem("isPageLoaded", "true");
+    }
+  }, []);
 
   return (
     <>
@@ -108,13 +109,15 @@ export default function Home({ formattedProducts }) {
             </div>
           ))}
         </div>
+
+        <div>
+          <ProblemSolution />
+        </div>
+        <div>
+          <WePromise />
+        </div>
         <div className="pb-10">
           <Testimonials />
-        </div>
-     
-        <div>
-            <ProblemSolution/>
-            
         </div>
       </Layout>
     </>
