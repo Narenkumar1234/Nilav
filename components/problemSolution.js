@@ -60,7 +60,7 @@ export default function ProblemSolution() {
   return (
     <div className="lg:relative">
       <h1 className="font-bold items-center justify-center flex text-lg pt-10 px-10 text-center ">
-        Your Problem, Our Solution !
+        Unlocking the remedy to your concerns !
       </h1>
       <div className="py-10">
         <Carousel
