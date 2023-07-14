@@ -46,13 +46,12 @@ export default function Navbar({
         <p>100%</p>
         <p>Herbals</p>
       </div>
-      <div className="font-bold flex absolute left-48 justify-center text-xl right-52  items-center">
+      <div className="font-bold flex absolute left-44 justify-center text-xl right-52  items-center">
         <div className="flex items-center  justify-center">
           <img
             src="https://i.postimg.cc/LsLDnCmq/IMG-20230530-113928-375.jpg"
             alt="Watermark"
-            className="border-white w-10 m-3 rounded-md"
-            width={"50%"}
+            className="border-white  lg:m-3 m-5 lg:w-10 rounded-md"
           />
         </div>
         <Link href="/">Narumugai</Link>
